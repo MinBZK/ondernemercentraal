@@ -1,0 +1,100 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.appLabelName }}-{{ .Chart.Version }}
+  labels:
+    app: {{ .Values.appLabelName }}
+    tier: zeer-vertrouwd
+spec:
+  replicas: {{ .Values.replicaCount }}
+  strategy:
+    type: RollingUpdate
+  selector:
+    matchLabels:
+      app: {{ .Values.appLabelName }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.appLabelName }}
+        tier: zeer-vertrouwd
+        version: {{ .Chart.Version }}
+        egress-frontoffice-policy: allow
+        ingress-controller-frontoffice-policy: allow
+        pgo-cluster-policy: allow
+      annotations:
+        backup.velero.io/backup-volumes: {{ .Values.appLabelName }}-pvc
+    spec:
+      imagePullSecrets:
+        - name: harbor-puller
+      containers:
+        - name: {{ .Values.appLabelName }}
+          image: harbor-gn2.cicd.s15m.nl/ictu-devops/{{ .Values.imageLabelName }}:{{ .Chart.Version }}
+          command: ["/bin/sh","-c"]
+          args: ["alembic upgrade head; python -m app.scripts.init; uvicorn app.main:app --host 0.0.0.0"]          
+          resources:
+            limits:
+              cpu: 500m
+              memory: 500Mi
+            requests:
+              cpu: 500m
+              memory: 500Mi
+          ports:
+            - containerPort: 8000
+          volumeMounts:
+            - name: {{ .Values.appLabelName }}-pvc
+              mountPath: /backend/data
+          envFrom:
+            - configMapRef:
+                name: {{ .Values.appLabelName }}-config
+            - secretRef:
+                 name: mailrelay-prod-ictu-devops-v2
+            - secretRef:
+                name: oc-portaal-secrets
+          env:
+            - name: mount_path
+              value: {{ .Values.mountPath }}
+            - name: POSTGRES_SERVER
+              value: "{{ .Values.poolerService }}.{{ .Values.namespace }}.svc"
+            - name: POSTGRES_PORT
+              value: '5432'
+            - name: POSTGRES_DB
+              value: ocdata
+            - name: POSTGRES_USER
+              valueFrom:
+                  secretKeyRef:
+                    name: {{ .Values.databaseSlug }}-appuser-secret
+                    key: username
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                  secretKeyRef:
+                    name: {{ .Values.databaseSlug }}-appuser-secret
+                    key: password
+            - name: MINIO_ACCESS_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: fs-minio-api-user
+                  key: user
+            - name: MINIO_SECRET_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: fs-minio-api-user
+                  key: password         
+      volumes:
+        - name: {{ .Values.appLabelName }}-pvc
+          persistentVolumeClaim:
+            claimName: {{ .Values.appLabelName }}-pvc
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: {{ .Values.appLabelName }}-pvc
+  labels:
+    tier: vertrouwd
+    app: {{ .Values.appLabelName }}
+spec:
+  storageClassName: nfs
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 1Gi

@@ -1,0 +1,38 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: "oc-i8s-ingress"
+  labels:
+    odcn.rijksapps.nl/inet-loadbalancer: ""
+  annotations:
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/proxy-body-size: 20m
+    nginx.ingress.kubernetes.io/configuration-snippet: >
+      more_set_headers "Content-Security-Policy:
+      connect-src 'self' https://s04.i8s.nl;
+      frame-src 'self' https://s04.i8s.nl;";
+    odcn.rijksapps.nl/inet-loadbalancer-hostnames: s27.i8s.nl
+spec:
+  ingressClassName: nginx
+  tls:
+    - hosts:
+        - s27.i8s.nl
+      secretName: wc-i8s-nl-certificate
+  rules:
+    - host: s27.i8s.nl
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: oc-frontend
+                port:
+                  number: 8080
+          - path: /api
+            pathType: Prefix
+            backend:
+              service:
+                name: oc-backend
+                port:
+                  number: 8000

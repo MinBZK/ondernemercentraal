@@ -1,0 +1,49 @@
+{
+    "type": "object",
+    "properties": {
+        "Algemene informatie": {
+            "type": "object",
+            "properties": {
+                "Soort traject": {
+                    "type": "string",
+                    "enum": [
+                        "Nieuw",
+                        "Verlenging"
+                    ]
+                },
+                "Zaaknummer EasyFunders": {
+                    "type": "string"
+                },
+                "Aanmeldcode traject": {
+                    "type": "string"
+                },
+                "Aangevraagd subsidiebedrag inclusief btw": {
+                    "type": "number",
+                    "format": "float"
+                }
+            }
+        },
+        "Intakegesprek": {
+            "type": "object",
+            "properties": {
+                "Wat is de hulpvraag van de ondernemer?": {
+                    "type": "string"
+                }
+            }
+        },
+        "Plan van aanpak": {
+            "type": "object",
+            "properties": {
+                "Doelstelling(-en)/ probleemstelling(-en)": {
+                    "type": "string"
+                },
+                "Beoogde eindresultaat": {
+                    "type": "string"
+                },
+                "Op te leveren eindproduct": {
+                    "type": "string"
+                }
+            }
+        }
+    }
+}

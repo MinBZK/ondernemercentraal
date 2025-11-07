@@ -1,0 +1,18 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: {{ .Values.appLabelName }}-config
+data:
+  KEYCLOAK_URI: {{ .Values.keycloak.uri }}
+  KEYCLOAK_REALM: {{ .Values.keycloak.realm }}
+  KEYCLOAK_CLIENT: {{ .Values.keycloak.client }}
+  CLAMAV_HOST: {{.Values.clamavHost}}
+  CLAMAV_PORT: "{{.Values.clamavPort}}"
+  CLIENT_BASE_URL: {{ .Values.clientBaseUrl }}
+  REQUIRE_TOTP: "{{ .Values.requireTotp }}"
+  KEYCLOAK_API_CLIENT: {{ .Values.keycloak.apiClient }}
+  KEYCLOAK_API_URI: {{ .Values.keycloak.apiUrl }}
+  CLAMAV_HOST: {{.Values.clamavHost}}
+  MINIO_HOST: {{ .Values.minioHost }}
+  MINIO_HOST_PORT: "443"
+  TENANT_NAME: {{ .Values.tenantName }}

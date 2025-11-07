@@ -1,0 +1,35 @@
+[project]
+name = "oc_portaal-backend"
+version = "0.1.0"
+description = "OC portaal backend"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "alembic>=1.15.2",
+    "asyncpg>=0.30.0",
+    "clamd>=1.0.2",
+    "coverage>=7.8.0",
+    "fastapi[standard]>=0.115.12",
+    "jsonschema>=4.23.0",
+    "minio>=7.2.15",
+    "openai>=1.99.3",
+    "openpyxl>=3.1.5",
+    "pandas>=2.3.1",
+    "psycopg2-binary>=2.9.10",
+    "pydantic-settings>=2.8.1",
+    "pyjwt[crypto]>=2.10.0",
+    "pyright>=1.1.399",
+    "pytest>=8.3.5",
+    "python-dateutil>=2.9.0.post0",
+    "python-keycloak>=5.0.0",
+    "ruff>=0.11.5",
+    "sqlalchemy>=2.0.40",
+    "uvicorn>=0.34.1",
+]
+
+[tool.ruff]
+line-length = 120
+
+[tool.ruff.lint]
+# Enable flake8-bugbear (`B`) rules, in addition to the defaults.
+select = ['E', 'F', 'W', 'A', 'PLC', 'PLE', 'PLW', 'I']

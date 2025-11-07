@@ -1,0 +1,91 @@
+{
+  "common": {
+    "appTitle": "Ondernemer Centraal",
+    "welcome": "Welkom",
+    "thisWebsiteInOtherLanguages": "Deze website in andere talen",
+    "date": "Datum",
+    "from": "Van",
+    "until": "Tot",
+    "close": "Sluiten",
+    "created_at": "Aangemaakt op",
+    "updated_at": "Bijgewerkt op"
+  },
+  "header": {
+    "appointments": "Afspraken",
+    "newAppointment": "Afspraak maken",
+    "logout": "Uitloggen"
+  },
+  "footer": {
+    "municipalityUtrecht": "Gemeente Utrecht"
+  },
+  "validation": {
+    "required": "Dit veld is verplicht",
+    "kvkLength": "Dit veld moet precies {length} tekens bevatten",
+    "onlyNumbers": "Dit veld mag alleen cijfers bevatten",
+    "noNumbers": "Dit veld mag geen cijfers bevatten"
+  },
+  "entities": {
+    "client": "Ondernemer",
+    "advisor": "Adviseur",
+    "case": "Dossier"
+  },
+  "entityAttributes": {
+    "client": {
+      "companyLocation": "Vestigingsgemeente bedrijf",
+      "residenceLocation": "Woongemeente",
+      "initials": "Voorletters",
+      "lastNamePrefix": "Tussenvoegsel(s)",
+      "lastName": "Achternaam",
+      "companyName": "Bedrijfsnaam",
+      "bsn": "BSN (burgerservicenummer)",
+      "email": "E-mailadres",
+      "kvkNumber": "KvK-nummer",
+      "phoneNumber": "Telefoonnummer",
+      "agreeToShareData": "Ik geef toestemming om de gegevens die ik heb ingevuld te gebruiken voor mijn aanvraag en indien van toepassing te delen met een samenwerkingspartner"
+    },
+    "case": {
+      "isActive": "Actief"
+    }
+  },
+  "pages": {
+    "case": {
+      "selectAdvisor": "Selecteer adviseur"
+    },
+    "appointment": {
+      "create": {
+        "title": "Afspraak maken",
+        "headerIntroduction": "Voor wie?",
+        "introduction": "Onze hulp is voor alle ondernemers die wonen of hun bedrijf hebben in de de gemeentes",
+        "residenceWorkHeading": "Waar werkt en woont u?",
+        "yourDetails": "Uw gegevens",
+        "submitButton": "Afspraak maken",
+        "locationValidationError": "Aanmelden niet mogelijk. U kunt zich alleen aanmelden voor Ondernemer Centraal als u woont of werkt in de gemeentes.",
+        "signupError": "Het is niet mogelijk om een afspraak te maken omdat er al eerder een aanvraag is gedaan met dit e-mailadres."
+      },
+      "confirmed": {
+        "title": "Afspraak gemaakt",
+        "confirmationMessage": "De afspraak is gemaakt"
+      },
+      "clientCreated": {
+        "title": "Afspraak maken",
+        "clientAlreadyExists": "Er is al een afspraak gemaakt voor het e-mail adres {email}.",
+        "ok": "Je gegevens zijn succesvol verwerkt. Je ontvangt een e-mail met een link om een afspraak te maken.",
+        "noEmailReceived": "Heb je geen e-mail ontvangen? Gebruik dan de knop hieronder om deze nogmaals te verzenden",
+        "resendEmail": "Verzend e-mail opnieuw"
+      },
+      "pick": {
+        "title": "Afspraak maken",
+        "titleCreated": "Afspraak bevestigd",
+        "linkInvalid": "De gebruikte link is niet geldig.",
+        "created": "Je hebt een afspraak gemaakt op",
+        "pickButtonLabel": "Bevestig afspraak",
+        "invalidLink": "De gebruikte link is ongeldig. Vul jouw e-mail adres in om een nieuwe link te versturen. Als jouw e-mail adres bij ons bekend is zul je een nieuwe link ontvangen.",
+        "signUpAgain": "Indien je geen e-mail hebt ontvangen, meld je dan opnieuw aan."
+      },
+      "validationMessages": {
+        "phone_number": "Dit is geen correct telefoonnummer.",
+        "bsn": "Dit is geen correct BSN (burgerservicenummer)."
+      }
+    }
+  }
+}

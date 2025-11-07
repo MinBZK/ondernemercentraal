@@ -1,0 +1,319 @@
+variables:
+  DOCKER_DRIVER: overlay2
+  DOCKER_HOST: tcp://docker:2375/
+  CLAIR_URL: "https://clair.diensten.test.overheid.standaardplatform.rijksapps.nl"
+  HARBOR_REG: "harbor-gn2.cicd.s15m.nl"
+  HARBOR_PROJECT: "ictu-devops"
+  TEST_IMAGE: ""
+  BASE_IMAGE: harbor-gn2.cicd.s15m.nl/ictu-devops-pub/oc-backend-base:1.4
+  NODE_IMAGE: harbor-gn2.cicd.s15m.nl/docker-hub-proxy/library/node:22-alpine
+  FRONTEND_NAME: oc-frontend
+  BACKEND_NAME: oc-backend
+  # FF_GITLAB_REGISTRY_HELPER_IMAGE: 1
+
+stages:
+  - lint
+  - build
+  - image-build
+  - test
+  - report
+  - image-tag
+  - cleanup
+  - chart
+  - deploy-test
+  - deploy-acc
+  - deploy-prd
+
+# Use default (non-privileged) runner, ref. https://docs.gitlab.com/ee/ci/yaml/#tags
+default:
+  tags:
+    - default
+
+include:
+  - local: "/gitlab-templates/image.gitlab-ci.yml"
+  - local: "/gitlab-templates/deploy.gitlab-ci.yml"
+  - local: "/gitlab-templates/chart.gitlab-ci.yml"
+  - local: "/gitlab-templates/test.gitlab-ci.yml"
+  - local: "/gitlab-templates/lint.gitlab-ci.yml"
+  - local: "/gitlab-templates/scan.gitlab-ci.yml"
+
+# ----------------------------------------------- Lint -----------------------------------------------
+frontend:lint:
+  stage: lint
+  image:
+    name: ${NODE_IMAGE}
+  allow_failure: false
+  variables:
+    TEST_FOLDER: "frontend"
+  before_script:
+    - echo "Started by ${GITLAB_USER_LOGIN} at $(date +%Y-%m-%d'-'%H-%M-%S)"
+    - cd $TEST_FOLDER
+    - if [ ! -d "$TEST_FOLDER/node_modules" ]; then npm ci --legacy-peer-deps; fi
+  script:
+    - npm run lint-check
+    - npm run format-check
+    - npm run type-check
+  only:
+    - merge_requests
+    - tags
+
+backend:lint:
+  stage: lint
+  allow_failure: false
+  image: ${BASE_IMAGE}
+  before_script:
+    - cd backend
+    - uv sync
+  script:
+    - make -f Makefile.check.mk check
+  only:
+    - merge_requests
+    - tags
+
+# ----------------------------------------------- Build -----------------------------------------------
+frontend:build:
+  stage: build
+  image: ${NODE_IMAGE}
+  before_script:
+    - cd frontend
+    - if [ ! -d "$TEST_FOLDER/node_modules" ]; then npm ci; fi
+  script:
+    - npm run build
+  artifacts:
+    paths:
+      - frontend/dist
+  needs: []
+  only:
+    - merge_requests
+    - tags
+
+frontend:image-build:
+  stage: image-build
+  extends: .image-build
+  variables:
+    HARBOR_REPO: $FRONTEND_NAME
+    DOCKER_FILE_PATH: "frontend"
+    DOCKER_FILE_NAME: "Dockerfile"
+    REPO_REFERENCE: "FRONTEND_CMS_TEST_REPO"
+  needs:
+    - frontend:build
+  only:
+    - merge_requests
+    - tags
+
+backend:image-build:
+  stage: image-build
+  extends: .image-build
+  variables:
+    HARBOR_REPO: $BACKEND_NAME
+    DOCKER_FILE_PATH: "backend"
+    DOCKER_FILE_NAME: "Dockerfile"
+    REPO_REFERENCE: "BACKEND_TEST_REPO"
+  only:
+    - merge_requests
+    - tags
+  # needs:
+  #   - backend:lint
+
+# ----------------------------------------------- Test -----------------------------------------------
+backend:test:
+  stage: test
+  extends: .pytest  
+  variables:
+    HARBOR_REPO: $BACKEND_NAME
+    WORKING_DIRECTORY: "backend"
+    TEST_IMAGE: $BACKEND_TEST_REPO
+  needs:
+    - backend:image-build
+  only:
+    - merge_requests
+    - tags
+
+backend:image_scan:
+  stage: test
+  extends: .image_scan
+  variables:
+    REPO: $BACKEND_TEST_REPO
+  needs:
+    - backend:image-build
+  only:
+    - merge_requests
+    - tags
+
+frontend:image_scan:
+  stage: test
+  extends: .image_scan
+  variables:
+    REPO: $FRONTEND_CMS_TEST_REPO
+  needs:
+    - frontend:image-build
+  only:
+    - merge_requests
+    - tags
+
+frontend:filesystem_scan:
+  stage: test
+  extends: .filesystem_scan
+  variables:
+    TEST_FOLDER: "frontend"
+  needs:
+    - frontend:lint
+  only:
+    - merge_requests
+    - tags
+
+backend:filesystem_scan:
+  stage: test
+  extends: .filesystem_scan
+  variables:
+    TEST_FOLDER: "backend"
+  needs:
+    - backend:lint
+  only:
+    - merge_requests
+    - tags
+
+sonarqube-check:
+  stage: report
+  extends: .sonarqube-check
+  allow_failure: true
+  needs:
+    - backend:test
+  only:
+    - merge_requests
+    - tags
+
+# ----------------------------------------------- Tags only -----------------------------------------------
+backend:image-tag:
+  stage: image-tag
+  extends: .image-tag
+  variables:
+    REPO: $BACKEND_TEST_REPO
+    HARBOR_REPO: $BACKEND_NAME
+  needs:
+    - backend:image-build
+  only:
+    - tags
+
+frontend:image-tag:
+  stage: image-tag
+  extends: .image-tag
+  variables:
+    REPO: $FRONTEND_CMS_TEST_REPO
+    HARBOR_REPO: "$FRONTEND_NAME"
+  needs:
+    - frontend:image-build
+  only:
+    - tags
+
+# ----------------------------------------------- cleanup -----------------------------------------------
+backend:image-cleanup:
+  stage: cleanup
+  extends: .image-delete
+  variables:
+    HARBOR_REPO: $BACKEND_NAME
+    REPO: $BACKEND_TEST_REPO
+  when: always
+  only:
+    - merge_requests
+    - tags
+
+frontend:image-cleanup:
+  stage: cleanup
+  extends: .image-delete
+  variables:
+    HARBOR_REPO: "$FRONTEND_NAME"
+    REPO: $FRONTEND_CMS_TEST_REPO
+  when: always
+  only:
+    - merge_requests
+    - tags
+
+# ----------------------------------------------- Chart stage ----------------------------------------------
+backend:chart:
+  extends: .chart
+  variables:
+    CHART_NAME: $BACKEND_NAME
+  needs:
+    - backend:image-tag
+
+frontend:chart:
+  extends: .chart
+  variables:
+    CHART_NAME: "$FRONTEND_NAME"
+  needs:
+    - frontend:image-tag
+# ----------------------------------------------- Deploy to TST stage -----------------------------------------------
+
+backend:deploy-test:
+  extends: .deploy
+  stage: deploy-test
+  variables:
+    NAMESPACE: "tst"
+    CHART_NAME: $BACKEND_NAME
+    CLUSTER: "overheid-test3"
+    HARBOR_REPO: $BACKEND_NAME
+  needs:
+    - backend:chart
+
+frontend:deploy-test:
+  extends: .deploy
+  stage: deploy-test
+  variables:
+    NAMESPACE: "tst"
+    CHART_NAME: "$FRONTEND_NAME"
+    CLUSTER: "overheid-test3"
+    HARBOR_REPO: "$FRONTEND_NAME"
+  needs:
+    - frontend:chart
+
+# ----------------------------------------------- Deploy to ACC stage -----------------------------------------------
+backend:deploy-acc:
+  extends: .deploy
+  stage: deploy-acc
+  variables:
+    NAMESPACE: "acc"
+    CHART_NAME: $BACKEND_NAME
+    CLUSTER: "overheid-test3"
+    HARBOR_REPO: $BACKEND_NAME
+  needs:
+    - backend:chart
+  when: manual
+
+frontend:deploy-acc:
+  extends: .deploy
+  stage: deploy-acc
+  variables:
+    NAMESPACE: "acc"
+    CHART_NAME: "$FRONTEND_NAME"
+    CLUSTER: "overheid-test3"
+    HARBOR_REPO: "$FRONTEND_NAME"
+  needs:
+    - frontend:chart
+  when: manual
+
+# ----------------------------------------------- Deploy to PRD stage -----------------------------------------------
+
+backend:deploy-prd:
+  extends: .deploy
+  stage: deploy-prd
+  variables:
+    NAMESPACE: "prd"
+    CHART_NAME: $BACKEND_NAME
+    CLUSTER: "overheid-prod4"
+    HARBOR_REPO: $BACKEND_NAME
+  needs:
+    - backend:chart
+  when: manual
+
+frontend:deploy-prd:
+  extends: .deploy
+  stage: deploy-prd
+  variables:
+    NAMESPACE: "prd"
+    CHART_NAME: "$FRONTEND_NAME"
+    CLUSTER: "overheid-prod4"
+    HARBOR_REPO: "$FRONTEND_NAME"
+  needs:
+    - frontend:chart
+  when: manual

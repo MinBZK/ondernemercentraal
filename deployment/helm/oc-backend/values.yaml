@@ -1,0 +1,14 @@
+namespace: default
+
+projectSlug: "oc"
+appLabelName: "oc-backend"
+imageLabelName: "oc-backend"
+secretName: "oc-backend"
+
+databaseSlug: "oc-cnpg"
+poolerService: "oc-cnpg-pooler"
+
+emailCustomer: "ictu-devops" 
+mailRelay: "mailrelay-prod-ictu-devops"
+
+mountPath: "/api" 

@@ -1,0 +1,1332 @@
+{
+  "type": "object",
+  "properties": {
+    "Wat vraagt u aan?": {
+      "properties": {
+        "U kunt met dit aanvraagformulier de volgende regelingen aanvragen:\n\n### Uitkering levensonderhoud\nIs uw inkomen gedaald tot onder het sociaal minimum en hebt u daardoor moeite om te kunnen voorzien in uw levensonderhoud en met het betalen van uw vaste lasten van uw bedrijf? Dan kunt u hiervoor Bbz (Besluit bijstandsverlening zelfstandigen) aanvragen.\n\n### Bijzondere bijstand voor arbeidsongeschiktheidsverzekering\nIs uw inkomen gedaald tot onder het sociaal minimum en hebt u daardoor moeite met het betalen van uw premie voor uw arbeidsongeschiktheidsverzekering? Dan kunt u hiervoor bijzondere bijstand aanvragen waarmee u het volledige bedrag aan premie van ons krijgt tot u het weer zelf kunt betalen. Voorwaarde is dat u al een arbeidsongeschiktheidsverzekering hebt.\n\n### Bijzondere bijstand voor woonkostentoeslag\nIs uw inkomen gedaald tot onder het sociaal minimum en hebt u daardoor moeite met het betalen van uw privé woonkosten? Dan kunt u hiervoor bijzondere bijstand aanvragen.\n\n### Bedrijfskapitaal\nU kunt als (startende) zelfstandige een bedrijfskapitaal aanvragen. Met een bedrijfskapitaal kunt u investeren in uw bedrijf. De rente over deze lening is 8% met een maximale looptijd van 10 jaar.": {
+          "type": "boolean",
+          "readOnly": true,
+          "x-is-child": false
+        },
+        "Waar vraagt u bijstand voor? (meerdere opties mogelijk)": {
+          "type": "array",
+          "readOnly": false,
+          "x-is-child": false,
+          "items": {
+            "type": "string",
+            "enum": [
+              "Uitkering levensonderhoud",
+              "Bijzondere bijstand kosten arbeidsongeschiktheidsverzekering",
+              "Bijzondere bijstand woonkostentoeslag",
+              "Bedrijfskapitaal"
+            ]
+          }
+        },
+        "Waarom vraagt u bijstand aan?": {
+          "type": "string",
+          "readOnly": false,
+          "x-is-child": false
+        },
+        "Welke situatie is op u van toepassing?": {
+          "type": "string",
+          "readOnly": false,
+          "x-is-child": false,
+          "enum": [
+            "Beginnend zelfstandige",
+            "Gevestigde zelfstandige (als u langer dan 18 maanden geleden gestart bent met uw bedrijf)",
+            "Zelfstandige geboren voor 01-01-1960",
+            "Beëindigende zelfstandige (als u uw bedrijf binnen 12 maanden wilt beëindigen)",
+            "Arbeidsongeschikte zelfstandige (als u door arbeidsongeschiktheid tijdelijk niet in uw onderneming kunt werken)"
+          ]
+        }
+      },
+      "type": "object",
+      "required": [
+        "Waar vraagt u bijstand voor? (meerdere opties mogelijk)",
+        "Waarom vraagt u bijstand aan?",
+        "Welke situatie is op u van toepassing?"
+      ]
+    },
+    "Voorwaarden": {
+      "properties": {
+        "### Geldt BBZ voor u?\nU krijgt eerst een aantal vragen om te weten of u aan de voorwaarden voldoet. Voldoet u aan de voorwaarden? Dan kunt u verder met uw aanvraag.": {
+          "type": "boolean",
+          "readOnly": true,
+          "x-is-child": false
+        },
+        "Bent u ouder dan 18 en jonger dan de AOW-leeftijd?": {
+          "type": "string",
+          "readOnly": false,
+          "x-is-child": false,
+          "enum": [
+            "Ja",
+            "Nee"
+          ]
+        },
+        "### Helaas kunt u geen BBZ aanvragen\nU voldoet namelijk qua leeftijd niet aan de voorwaarden voor BBZ.\n\nHebt u zorgen over geld of uw onderneming? Wacht niet, maar praat met een ondernemersadviseur van Ondernemer Centraal. De adviseur denkt met u mee en u krijgt weer overzicht. U kunt daarna gratis coaching, advies en hulp krijgen. Lees meer en meld u aan via www.utrecht.nl/ondernemercentraal": {
+          "type": "boolean",
+          "readOnly": true,
+          "x-is-child": true
+        },
+        "Hebt u een eigen bedrijf?": {
+          "type": "string",
+          "readOnly": false,
+          "x-is-child": true,
+          "enum": [
+            "Ja",
+            "Nee"
+          ]
+        },
+        "Wilt u een eigen bedrijf starten?": {
+          "type": "string",
+          "readOnly": false,
+          "x-is-child": true,
+          "enum": [
+            "Ja",
+            "Nee"
+          ]
+        },
+        "### Helaas kunt u geen BBZ aanvragen\nU voldoet namelijk niet aan de voorwaarden voor BBZ, omdat u geen eigen bedrijf heeft of wilt starten.\n\nHebt u zorgen over geld of uw onderneming? Wacht niet, maar praat met een ondernemersadviseur van Ondernemer Centraal. De adviseur denkt met u mee en u krijgt weer overzicht. U kunt daarna gratis coaching, advies en hulp krijgen. Lees meer en meld u aan via www.utrecht.nl/ondernemercentraal": {
+          "type": "boolean",
+          "readOnly": true,
+          "x-is-child": true
+        },
+        "Werkt u minimaal 24 uur per week?": {
+          "type": "string",
+          "readOnly": false,
+          "x-is-child": true,
+          "enum": [
+            "Ja",
+            "Nee"
+          ]
+        },
+        "### Helaas kunt u geen BBZ aanvragen\nU voldoet namelijk niet aan de voorwaarden voor BBZ, omdat u niet minimaal 24 uur per week werkt.\n\nHebt u zorgen over geld of uw onderneming? Wacht niet, maar praat met een ondernemersadviseur van Ondernemer Centraal. De adviseur denkt met u mee en u krijgt weer overzicht. U kunt daarna gratis coaching, advies en hulp krijgen. Lees meer en meld u aan via www.utrecht.nl/ondernemercentraal": {
+          "type": "boolean",
+          "readOnly": true,
+          "x-is-child": true
+        },
+        "Is uw bedrijf in Nederland gevestigd?": {
+          "type": "string",
+          "readOnly": false,
+          "x-is-child": true,
+          "enum": [
+            "Ja",
+            "Nee"
+          ]
+        },
+        "### Helaas kunt u geen BBZ aanvragen\nU voldoet namelijk niet aan de voorwaarden voor BBZ, omdat uw bedrijf niet in Nederland gevestigd is.\n\nHebt u zorgen over geld of uw onderneming? Wacht niet, maar praat met een ondernemersadviseur van Ondernemer Centraal. De adviseur denkt met u mee en u krijgt weer overzicht. U kunt daarna gratis coaching, advies en hulp krijgen. Lees meer en meld u aan via www.utrecht.nl/ondernemercentraal": {
+          "type": "boolean",
+          "readOnly": true,
+          "x-is-child": true
+        },
+        "Hebt u volledige zeggenschap in het bedrijf of zelfstandig beroep en draagt u financiële risico's daarvan (eventueel samen met partners met wie het bedrijf of zelfstandig beroep wordt uitgeoefend)?": {
+          "type": "string",
+          "readOnly": false,
+          "x-is-child": true,
+          "enum": [
+            "Ja",
+            "Nee"
+          ]
+        },
+        "### Helaas kunt u geen BBZ aanvragen\nU voldoet namelijk niet aan de voorwaarden voor BBZ, omdat u geen beslissingsmacht of financieel risico draagt.\n\nHebt u zorgen over geld of uw onderneming? Wacht niet, maar praat met een ondernemersadviseur van Ondernemer Centraal. De adviseur denkt met u mee en u krijgt weer overzicht. U kunt daarna gratis coaching, advies en hulp krijgen. Lees meer en meld u aan via www.utrecht.nl/ondernemercentraal": {
+          "type": "boolean",
+          "readOnly": true,
+          "x-is-child": true
+        }
+      },
+      "type": "object",
+      "required": [
+        "Bent u ouder dan 18 en jonger dan de AOW-leeftijd?"
+      ],
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "Bent u ouder dan 18 en jonger dan de AOW-leeftijd?": {
+                "const": "Nee"
+              }
+            },
+            "required": [
+              "Bent u ouder dan 18 en jonger dan de AOW-leeftijd?"
+            ]
+          },
+          "then": {
+            "required": [
+              "### Helaas kunt u geen BBZ aanvragen\nU voldoet namelijk qua leeftijd niet aan de voorwaarden voor BBZ.\n\nHebt u zorgen over geld of uw onderneming? Wacht niet, maar praat met een ondernemersadviseur van Ondernemer Centraal. De adviseur denkt met u mee en u krijgt weer overzicht. U kunt daarna gratis coaching, advies en hulp krijgen. Lees meer en meld u aan via www.utrecht.nl/ondernemercentraal"
+            ]
+          },
+          "else": {}
+        },
+        {
+          "if": {
+            "properties": {
+              "Bent u ouder dan 18 en jonger dan de AOW-leeftijd?": {
+                "const": "Ja"
+              }
+            },
+            "required": [
+              "Bent u ouder dan 18 en jonger dan de AOW-leeftijd?"
+            ]
+          },
+          "then": {
+            "required": [
+              "Hebt u een eigen bedrijf?"
+            ],
+            "allOf": [
+              {
+                "if": {
+                  "properties": {
+                    "Hebt u een eigen bedrijf?": {
+                      "const": "Nee"
+                    }
+                  },
+                  "required": [
+                    "Hebt u een eigen bedrijf?"
+                  ]
+                },
+                "then": {
+                  "required": [
+                    "Wilt u een eigen bedrijf starten?"
+                  ],
+                  "allOf": [
+                    {
+                      "if": {
+                        "properties": {
+                          "Wilt u een eigen bedrijf starten?": {
+                            "const": "Nee"
+                          }
+                        },
+                        "required": [
+                          "Wilt u een eigen bedrijf starten?"
+                        ]
+                      },
+                      "then": {
+                        "required": [
+                          "### Helaas kunt u geen BBZ aanvragen\nU voldoet namelijk niet aan de voorwaarden voor BBZ, omdat u geen eigen bedrijf heeft of wilt starten.\n\nHebt u zorgen over geld of uw onderneming? Wacht niet, maar praat met een ondernemersadviseur van Ondernemer Centraal. De adviseur denkt met u mee en u krijgt weer overzicht. U kunt daarna gratis coaching, advies en hulp krijgen. Lees meer en meld u aan via www.utrecht.nl/ondernemercentraal"
+                        ]
+                      },
+                      "else": {}
+                    }
+                  ]
+                },
+                "else": {}
+              },
+              {
+                "if": {
+                  "properties": {
+                    "Hebt u een eigen bedrijf?": {
+                      "const": "Ja"
+                    }
+                  },
+                  "required": [
+                    "Hebt u een eigen bedrijf?"
+                  ]
+                },
+                "then": {
+                  "required": [
+                    "Werkt u minimaal 24 uur per week?"
+                  ],
+                  "allOf": [
+                    {
+                      "if": {
+                        "properties": {
+                          "Werkt u minimaal 24 uur per week?": {
+                            "const": "Nee"
+                          }
+                        },
+                        "required": [
+                          "Werkt u minimaal 24 uur per week?"
+                        ]
+                      },
+                      "then": {
+                        "required": [
+                          "### Helaas kunt u geen BBZ aanvragen\nU voldoet namelijk niet aan de voorwaarden voor BBZ, omdat u niet minimaal 24 uur per week werkt.\n\nHebt u zorgen over geld of uw onderneming? Wacht niet, maar praat met een ondernemersadviseur van Ondernemer Centraal. De adviseur denkt met u mee en u krijgt weer overzicht. U kunt daarna gratis coaching, advies en hulp krijgen. Lees meer en meld u aan via www.utrecht.nl/ondernemercentraal"
+                        ]
+                      },
+                      "else": {}
+                    },
+                    {
+                      "if": {
+                        "properties": {
+                          "Werkt u minimaal 24 uur per week?": {
+                            "const": "Ja"
+                          }
+                        },
+                        "required": [
+                          "Werkt u minimaal 24 uur per week?"
+                        ]
+                      },
+                      "then": {
+                        "required": [
+                          "Is uw bedrijf in Nederland gevestigd?"
+                        ],
+                        "allOf": [
+                          {
+                            "if": {
+                              "properties": {
+                                "Is uw bedrijf in Nederland gevestigd?": {
+                                  "const": "Nee"
+                                }
+                              },
+                              "required": [
+                                "Is uw bedrijf in Nederland gevestigd?"
+                              ]
+                            },
+                            "then": {
+                              "required": [
+                                "### Helaas kunt u geen BBZ aanvragen\nU voldoet namelijk niet aan de voorwaarden voor BBZ, omdat uw bedrijf niet in Nederland gevestigd is.\n\nHebt u zorgen over geld of uw onderneming? Wacht niet, maar praat met een ondernemersadviseur van Ondernemer Centraal. De adviseur denkt met u mee en u krijgt weer overzicht. U kunt daarna gratis coaching, advies en hulp krijgen. Lees meer en meld u aan via www.utrecht.nl/ondernemercentraal"
+                              ]
+                            },
+                            "else": {}
+                          },
+                          {
+                            "if": {
+                              "properties": {
+                                "Is uw bedrijf in Nederland gevestigd?": {
+                                  "const": "Ja"
+                                }
+                              },
+                              "required": [
+                                "Is uw bedrijf in Nederland gevestigd?"
+                              ]
+                            },
+                            "then": {
+                              "required": [
+                                "Hebt u volledige zeggenschap in het bedrijf of zelfstandig beroep en draagt u financiële risico's daarvan (eventueel samen met partners met wie het bedrijf of zelfstandig beroep wordt uitgeoefend)?"
+                              ],
+                              "allOf": [
+                                {
+                                  "if": {
+                                    "properties": {
+                                      "Hebt u volledige zeggenschap in het bedrijf of zelfstandig beroep en draagt u financiële risico's daarvan (eventueel samen met partners met wie het bedrijf of zelfstandig beroep wordt uitgeoefend)?": {
+                                        "const": "Nee"
+                                      }
+                                    },
+                                    "required": [
+                                      "Hebt u volledige zeggenschap in het bedrijf of zelfstandig beroep en draagt u financiële risico's daarvan (eventueel samen met partners met wie het bedrijf of zelfstandig beroep wordt uitgeoefend)?"
+                                    ]
+                                  },
+                                  "then": {
+                                    "required": [
+                                      "### Helaas kunt u geen BBZ aanvragen\nU voldoet namelijk niet aan de voorwaarden voor BBZ, omdat u geen beslissingsmacht of financieel risico draagt.\n\nHebt u zorgen over geld of uw onderneming? Wacht niet, maar praat met een ondernemersadviseur van Ondernemer Centraal. De adviseur denkt met u mee en u krijgt weer overzicht. U kunt daarna gratis coaching, advies en hulp krijgen. Lees meer en meld u aan via www.utrecht.nl/ondernemercentraal"
+                                    ]
+                                  },
+                                  "else": {}
+                                }
+                              ]
+                            },
+                            "else": {}
+                          }
+                        ]
+                      },
+                      "else": {}
+                    }
+                  ]
+                },
+                "else": {}
+              }
+            ]
+          },
+          "else": {}
+        }
+      ]
+    },
+    "Uw gegevens": {
+      "properties": {
+        "Hieronder ziet u de gegevens die wij van u weten. \nKloppen deze gegevens niet? Dan kunt u deze laten aanpassen via www.utrecht.nl/persoonsgegevenswijzigen. Uw e-mailadres en telefoonnummer vult u zelf in.": {
+          "type": "boolean",
+          "readOnly": true,
+          "x-is-child": false
+        },
+        "Voorletter(s)": {
+          "type": "string",
+          "readOnly": false,
+          "x-is-child": false
+        },
+        "Tussenvoegsel(s)": {
+          "type": "string",
+          "readOnly": false,
+          "x-is-child": false
+        },
+        "Achternaam": {
+          "type": "string",
+          "readOnly": false,
+          "x-is-child": false
+        },
+        "Postcode": {
+          "type": "string",
+          "readOnly": false,
+          "x-is-child": false
+        },
+        "Huisnummer": {
+          "type": "number",
+          "readOnly": false,
+          "x-is-child": false
+        },
+        "Huisletter": {
+          "type": "string",
+          "readOnly": false,
+          "x-is-child": false
+        },
+        "Huisnummertoevoeging": {
+          "type": "string",
+          "readOnly": false,
+          "x-is-child": false
+        },
+        "Straatnaam": {
+          "type": "string",
+          "readOnly": false,
+          "x-is-child": false
+        },
+        "Woonplaats": {
+          "type": "string",
+          "readOnly": false,
+          "x-is-child": false
+        },
+        "Telefoonnummer": {
+          "type": "string",
+          "readOnly": false,
+          "x-is-child": false
+        },
+        "E-mailadres": {
+          "type": "string",
+          "readOnly": false,
+          "x-is-child": false
+        }
+      },
+      "type": "object",
+      "required": [
+        "Achternaam",
+        "E-mailadres",
+        "Huisnummer",
+        "Postcode",
+        "Straatnaam",
+        "Telefoonnummer",
+        "Voorletter(s)",
+        "Woonplaats"
+      ]
+    },
+    "Gezinssituatie": {
+      "properties": {
+        "U bent partners als u getrouwd bent of een geregistreerd partnerschap hebt.\nU bent ook partners als u op hetzelfde adres woont en:\n- samen een huishouden hebt\n- ex-echtgenoten of ex-partners bent\n- samen een kind hebt\n- u het kind van uw partner hebt erkend of uw partner uw kind heeft erkend\n- u ergens anders als partners geregistreerd staat. Bijvoorbeeld bij de Belastingdienst of als meeverzekerde bij een zorgverzekering.\n\nWoont uw kind van 18 jaar of ouder op hetzelfde adres? Uw kind telt niet als partner.": {
+          "type": "boolean",
+          "readOnly": true,
+          "x-is-child": false
+        },
+        "Hebt u een partner met wie u samenwoont?": {
+          "type": "string",
+          "readOnly": false,
+          "x-is-child": false,
+          "enum": [
+            "Ja",
+            "Nee"
+          ]
+        },
+        "Burgerservicenummer (BSN)": {
+          "type": "number",
+          "readOnly": false,
+          "x-is-child": true
+        },
+        "Voorletter(s)": {
+          "type": "string",
+          "readOnly": false,
+          "x-is-child": true
+        },
+        "Tussenvoegsel(s)": {
+          "type": "string",
+          "readOnly": false,
+          "x-is-child": true
+        },
+        "Achternaam ": {
+          "type": "string",
+          "readOnly": false,
+          "x-is-child": true
+        },
+        "Geboortedatum ": {
+          "type": "string",
+          "readOnly": false,
+          "x-is-child": true,
+          "format": "date"
+        },
+        "E-mailadres": {
+          "type": "string",
+          "readOnly": false,
+          "x-is-child": true
+        }
+      },
+      "type": "object",
+      "required": [
+        "Hebt u een partner met wie u samenwoont?"
+      ],
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "Hebt u een partner met wie u samenwoont?": {
+                "const": "Ja"
+              }
+            },
+            "required": [
+              "Hebt u een partner met wie u samenwoont?"
+            ]
+          },
+          "then": {
+            "required": [
+              "Achternaam ",
+              "Burgerservicenummer (BSN)",
+              "E-mailadres",
+              "Geboortedatum ",
+              "Tussenvoegsel(s)",
+              "Voorletter(s)"
+            ]
+          },
+          "else": {}
+        }
+      ]
+    },
+    "Medebewoners": {
+      "properties": {
+        "Woont u met meer volwassenen (27 jaar en ouder) in 1 huis, kamer of etage? Dan kunt u de woonkosten delen. Dit kan van invloed zijn op de hoogte van uw uitkering.": {
+          "type": "boolean",
+          "readOnly": true,
+          "x-is-child": false
+        },
+        "Wonen er nog meer mensen in de woning naast uw partner of kinderen?": {
+          "type": "string",
+          "readOnly": false,
+          "x-is-child": false,
+          "enum": [
+            "Ja",
+            "Nee"
+          ]
+        },
+        "Wie wonen er nog bij u in? ": {
+          "type": "string",
+          "readOnly": false,
+          "x-is-child": true
+        }
+      },
+      "type": "object",
+      "required": [
+        "Wonen er nog meer mensen in de woning naast uw partner of kinderen?"
+      ],
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "Wonen er nog meer mensen in de woning naast uw partner of kinderen?": {
+                "const": "Ja"
+              }
+            },
+            "required": [
+              "Wonen er nog meer mensen in de woning naast uw partner of kinderen?"
+            ]
+          },
+          "then": {
+            "required": [
+              "Wie wonen er nog bij u in? "
+            ]
+          },
+          "else": {}
+        }
+      ]
+    },
+    "Bedrijfsgegevens": {
+      "properties": {
+        "Naam bedrijf ": {
+          "type": "string",
+          "readOnly": false,
+          "x-is-child": false
+        },
+        "KvK-nummer": {
+          "type": "number",
+          "readOnly": false,
+          "x-is-child": false
+        },
+        "Startdatum bedrijf": {
+          "type": "string",
+          "readOnly": false,
+          "x-is-child": false,
+          "format": "date"
+        },
+        "Postcode ": {
+          "type": "string",
+          "readOnly": false,
+          "x-is-child": false
+        },
+        "Huisnummer ": {
+          "type": "number",
+          "readOnly": false,
+          "x-is-child": false
+        },
+        "Huisletter": {
+          "type": "string",
+          "readOnly": false,
+          "x-is-child": false
+        },
+        "Huisnummertoevoeging": {
+          "type": "string",
+          "readOnly": false,
+          "x-is-child": false
+        },
+        "Straatnaam": {
+          "type": "string",
+          "readOnly": false,
+          "x-is-child": false
+        },
+        "Plaats": {
+          "type": "string",
+          "readOnly": false,
+          "x-is-child": false
+        },
+        "Telefoonnummer": {
+          "type": "string",
+          "readOnly": false,
+          "x-is-child": false
+        },
+        "E-mailadres van het bedrijf": {
+          "type": "string",
+          "readOnly": false,
+          "x-is-child": false
+        },
+        "Bedrijfsvorm ": {
+          "type": "string",
+          "readOnly": false,
+          "x-is-child": false,
+          "enum": [
+            "Eenmanszaak",
+            "Vennootschap onder firma",
+            "Besloten vennootschap",
+            "Anders"
+          ]
+        },
+        "Namelijk": {
+          "type": "string",
+          "readOnly": false,
+          "x-is-child": true
+        },
+        "In welke branche bent u werkzaam?": {
+          "type": "array",
+          "readOnly": false,
+          "x-is-child": false,
+          "items": {
+            "type": "string",
+            "enum": [
+              "Automotive",
+              "Beveiliging",
+              "Binnenvaart",
+              "Bouw",
+              "Detailhandel",
+              "Groothandel",
+              "Horeca",
+              "ICT",
+              "Kunst en cultuur",
+              "Logistiek",
+              "Markten",
+              "Persoonlijke dienstverlening",
+              "Persoonlijk vervoer",
+              "Sport en recreatie",
+              "Techniek",
+              "Uitzendbranche",
+              "Zakelijke dienstverlening",
+              "Zorg en welzijn",
+              "Anders"
+            ]
+          }
+        },
+        "In welke andere branche werkt u?": {
+          "type": "string",
+          "readOnly": false,
+          "x-is-child": true
+        },
+        "Wat is uw winst of verlies (en evt. van uw partner) geweest in de afgelopen 3 jaar? Heeft u een jaar verlies gemaakt? Noteer dan een - voor het bedrag. Is uw bedrijf later gestart dan 3 jaar geleden? Vul dan €0 in bij de jaren waarin uw onderneming nog niet gestart was.": {
+          "type": "boolean",
+          "readOnly": true,
+          "x-is-child": false
+        },
+        "Winst of verlies in kalenderjaar - 3 jaar geleden (in euro's)": {
+          "type": "number",
+          "readOnly": false,
+          "x-is-child": false
+        },
+        "Winst of verlies in kalenderjaar - 2 jaar geleden (in euro's)": {
+          "type": "number",
+          "readOnly": false,
+          "x-is-child": false
+        },
+        "Winst of verlies in kalenderjaar - 1 jaar geleden (in euro's)": {
+          "type": "number",
+          "readOnly": false,
+          "x-is-child": false
+        },
+        "Winst of verlies in huidig kalenderjaar tot nu toe (in euro's)": {
+          "type": "number",
+          "readOnly": false,
+          "x-is-child": false
+        },
+        "Uw verwachte winst of verlies (en evt. van uw partner) in de rest van huidig kalenderjaar (in euro's)": {
+          "type": "number",
+          "readOnly": false,
+          "x-is-child": false
+        },
+        "Later in het formulier bij de bewijsstukken wordt gevraagd om een recente winst- en verliesrekening. Aan de hand daarvan schatten we een inkomen in. Na het afsluiten van uw boekjaar wordt er gekeken wat uw inkomen uit uw onderneming was en hoeveel recht u heeft op een uitkering (de definitieve vaststelling).": {
+          "type": "boolean",
+          "readOnly": true,
+          "x-is-child": false
+        },
+        "Hebt u (en evt. uw partner) meerdere ondernemingen?": {
+          "type": "string",
+          "readOnly": false,
+          "x-is-child": false,
+          "enum": [
+            "Ja",
+            "Nee"
+          ]
+        },
+        "Wat zijn de namen van uw (en evt. uw partners) andere ondernemingen?": {
+          "type": "string",
+          "readOnly": false,
+          "x-is-child": true
+        },
+        "Wat zijn de KvK-nummers van uw (en evt. uw partners) andere ondernemingen?": {
+          "type": "string",
+          "readOnly": false,
+          "x-is-child": true
+        },
+        "Wat zijn de startdatums van uw (en evt. uw partners) andere bedrijven?": {
+          "type": "string",
+          "readOnly": false,
+          "x-is-child": true
+        },
+        "Wat zijn de postcodes van uw (en evt. uw partners) andere bedrijven?": {
+          "type": "string",
+          "readOnly": false,
+          "x-is-child": true
+        },
+        "Wat zijn de huisnummers van uw (en evt. uw partners) andere bedrijven?": {
+          "type": "string",
+          "readOnly": false,
+          "x-is-child": true
+        },
+        "Wat zijn de huisletters van uw (en evt. uw partners) andere bedrijven?": {
+          "type": "string",
+          "readOnly": false,
+          "x-is-child": true
+        },
+        "Wat zijn de huisnummertoevoegingen van uw (en evt. uw partners) andere bedrijven?": {
+          "type": "string",
+          "readOnly": false,
+          "x-is-child": true
+        },
+        "Wat zijn de straatnamen van uw (en evt. uw partners) andere bedrijven?": {
+          "type": "string",
+          "readOnly": false,
+          "x-is-child": true
+        },
+        "Wat zijn de vestigingsplaatsen van uw (en evt. uw partners) andere bedrijven?": {
+          "type": "string",
+          "readOnly": false,
+          "x-is-child": true
+        },
+        "Wat zijn de telefoonnummers van uw (en evt. uw partners) andere bedrijven?": {
+          "type": "string",
+          "readOnly": false,
+          "x-is-child": true
+        },
+        "Wat zijn de e-mailadressen van uw (en evt. uw partners) andere bedrijven?": {
+          "type": "string",
+          "readOnly": false,
+          "x-is-child": true
+        },
+        "Wat zijn de bedrijfsvormen van uw (en evt. uw partners) andere bedrijven?": {
+          "type": "string",
+          "readOnly": false,
+          "x-is-child": true
+        }
+      },
+      "type": "object",
+      "required": [
+        "Bedrijfsvorm ",
+        "E-mailadres van het bedrijf",
+        "Hebt u (en evt. uw partner) meerdere ondernemingen?",
+        "Huisnummer ",
+        "In welke branche bent u werkzaam?",
+        "KvK-nummer",
+        "Naam bedrijf ",
+        "Plaats",
+        "Postcode ",
+        "Startdatum bedrijf",
+        "Straatnaam",
+        "Telefoonnummer",
+        "Uw verwachte winst of verlies (en evt. van uw partner) in de rest van huidig kalenderjaar (in euro's)",
+        "Winst of verlies in huidig kalenderjaar tot nu toe (in euro's)",
+        "Winst of verlies in kalenderjaar - 1 jaar geleden (in euro's)",
+        "Winst of verlies in kalenderjaar - 2 jaar geleden (in euro's)",
+        "Winst of verlies in kalenderjaar - 3 jaar geleden (in euro's)"
+      ],
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "Bedrijfsvorm ": {
+                "const": "Anders"
+              }
+            },
+            "required": [
+              "Bedrijfsvorm "
+            ]
+          },
+          "then": {
+            "required": [
+              "Namelijk"
+            ]
+          },
+          "else": {}
+        },
+        {
+          "if": {
+            "properties": {
+              "In welke branche bent u werkzaam?": {
+                "contains": {
+                  "const": "Anders"
+                }
+              }
+            },
+            "required": [
+              "In welke branche bent u werkzaam?"
+            ]
+          },
+          "then": {
+            "required": [
+              "In welke andere branche werkt u?"
+            ]
+          },
+          "else": {}
+        },
+        {
+          "if": {
+            "properties": {
+              "Hebt u (en evt. uw partner) meerdere ondernemingen?": {
+                "const": "Ja"
+              }
+            },
+            "required": [
+              "Hebt u (en evt. uw partner) meerdere ondernemingen?"
+            ]
+          },
+          "then": {
+            "required": [
+              "Wat zijn de KvK-nummers van uw (en evt. uw partners) andere ondernemingen?",
+              "Wat zijn de bedrijfsvormen van uw (en evt. uw partners) andere bedrijven?",
+              "Wat zijn de e-mailadressen van uw (en evt. uw partners) andere bedrijven?",
+              "Wat zijn de huisletters van uw (en evt. uw partners) andere bedrijven?",
+              "Wat zijn de huisnummers van uw (en evt. uw partners) andere bedrijven?",
+              "Wat zijn de huisnummertoevoegingen van uw (en evt. uw partners) andere bedrijven?",
+              "Wat zijn de namen van uw (en evt. uw partners) andere ondernemingen?",
+              "Wat zijn de postcodes van uw (en evt. uw partners) andere bedrijven?",
+              "Wat zijn de startdatums van uw (en evt. uw partners) andere bedrijven?",
+              "Wat zijn de straatnamen van uw (en evt. uw partners) andere bedrijven?",
+              "Wat zijn de telefoonnummers van uw (en evt. uw partners) andere bedrijven?",
+              "Wat zijn de vestigingsplaatsen van uw (en evt. uw partners) andere bedrijven?"
+            ]
+          },
+          "else": {}
+        }
+      ]
+    },
+    "Andere inkomsten": {
+      "properties": {
+        "U (en evt. uw partner) heeft mogelijk ook andere inkomsten zoals betaald werk, uitkering(en), pensioen of overig werk.": {
+          "type": "boolean",
+          "readOnly": true,
+          "x-is-child": false
+        },
+        "Heeft u (en evt. uw partner) nog andere inkomsten?": {
+          "type": "string",
+          "readOnly": false,
+          "x-is-child": false,
+          "enum": [
+            "Ja",
+            "Nee"
+          ]
+        },
+        "Wat voor andere inkomsten heeft u (en evt. uw partner)?": {
+          "type": "string",
+          "readOnly": false,
+          "x-is-child": true
+        },
+        "Wat ontvangt u (en evt. uw partner) netto?": {
+          "type": "string",
+          "readOnly": false,
+          "x-is-child": true
+        },
+        "Hoevaak wordt u (en evt. uw partner) uitbetaald? (Elke week, elke 4 weken of elke maand?)": {
+          "type": "string",
+          "readOnly": false,
+          "x-is-child": true
+        }
+      },
+      "type": "object",
+      "required": [
+        "Heeft u (en evt. uw partner) nog andere inkomsten?"
+      ],
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "Heeft u (en evt. uw partner) nog andere inkomsten?": {
+                "const": "Ja"
+              }
+            },
+            "required": [
+              "Heeft u (en evt. uw partner) nog andere inkomsten?"
+            ]
+          },
+          "then": {
+            "required": [
+              "Hoevaak wordt u (en evt. uw partner) uitbetaald? (Elke week, elke 4 weken of elke maand?)",
+              "Wat ontvangt u (en evt. uw partner) netto?",
+              "Wat voor andere inkomsten heeft u (en evt. uw partner)?"
+            ]
+          },
+          "else": {}
+        }
+      ]
+    },
+    "Bezittingen en schulden": {
+      "properties": {
+        "Als u geen Nederlandse of buitenlandse bankrekening(en) heeft kunt u deze velden leeg laten.": {
+          "type": "boolean",
+          "readOnly": true,
+          "x-is-child": false
+        },
+        "Noteer alle bankrekeningnummers van uw (en evt. uw partners) Nederlandse bankrekeningen": {
+          "type": "string",
+          "readOnly": false,
+          "x-is-child": false
+        },
+        "Nederlandse bankrekening(en): Op naam van": {
+          "type": "string",
+          "readOnly": false,
+          "x-is-child": false
+        },
+        "Nederlandse bankrekening(en): Huidige saldo('s)": {
+          "type": "string",
+          "readOnly": false,
+          "x-is-child": false
+        },
+        "Noteer alle bankrekeningnummers van uw (en evt. uw partners) buitenlandse bankrekeningen": {
+          "type": "string",
+          "readOnly": false,
+          "x-is-child": false
+        },
+        "Buitenlandse bankrekening(en): Op naam van": {
+          "type": "string",
+          "readOnly": false,
+          "x-is-child": false
+        },
+        "Buitenlandse bankrekening(en): Huidige saldo('s)": {
+          "type": "string",
+          "readOnly": false,
+          "x-is-child": false
+        },
+        "Hebt u (en evt. uw partner) (spaar)geld dat u kunt gebruiken voor uw eigen levensonderhoud?": {
+          "type": "string",
+          "readOnly": false,
+          "x-is-child": false,
+          "enum": [
+            "Ja",
+            "Nee"
+          ]
+        },
+        "Totale waarde van dat (spaar)geld": {
+          "type": "number",
+          "readOnly": false,
+          "x-is-child": true
+        },
+        "Hoeveel contant geld hebt u (en uw gezin) op dit moment?": {
+          "type": "number",
+          "readOnly": false,
+          "x-is-child": false
+        },
+        "Hebt u (en evt. uw partner) 1 of meer koopwoningen? (In Nederland of in het buitenland?)": {
+          "type": "string",
+          "readOnly": false,
+          "x-is-child": false,
+          "enum": [
+            "Ja",
+            "Nee"
+          ]
+        },
+        "Noteer alle (WOZ) waardes van uw (en evt. uw partners) huizen": {
+          "type": "string",
+          "readOnly": false,
+          "x-is-child": true
+        },
+        "Noteer alle waardes van uw (en evt. uw partners) hypotheekschuld(en)": {
+          "type": "string",
+          "readOnly": false,
+          "x-is-child": true
+        },
+        "Zijn er spaar-, beleggingsproducten of levensverzekeringen gekoppeld aan de hypotheek?": {
+          "type": "string",
+          "readOnly": false,
+          "x-is-child": false,
+          "enum": [
+            "Ja",
+            "Nee"
+          ]
+        },
+        "Wat is nu het spaar- of beleggingsbedrag?": {
+          "type": "number",
+          "readOnly": false,
+          "x-is-child": true
+        },
+        "Hebt u (en evt. uw partner) een auto en/of motor?": {
+          "type": "string",
+          "readOnly": false,
+          "x-is-child": false,
+          "enum": [
+            "Ja",
+            "Nee"
+          ]
+        },
+        "Noteer alle kentekens van uw (en evt. uw partners) auto('s) en/of motor(en)": {
+          "type": "string",
+          "readOnly": false,
+          "x-is-child": true
+        },
+        "Noteer alle dagwaardes van uw (en evt. uw partners) auto('s) en/of motor(en)": {
+          "type": "string",
+          "readOnly": false,
+          "x-is-child": true
+        },
+        "Noteer of uw (en evt. uw partners) auto('s) en/of motor(en) privé of zakelijk zijn": {
+          "type": "string",
+          "readOnly": false,
+          "x-is-child": true
+        },
+        "Hebt u (en evt. uw partner) een camper, caravan en/of boot?": {
+          "type": "string",
+          "readOnly": false,
+          "x-is-child": false,
+          "enum": [
+            "Ja",
+            "Nee"
+          ]
+        },
+        "Noteer de totale dagwaardes van uw (en evt. uw partners) camper, caravan en/of boot": {
+          "type": "number",
+          "readOnly": false,
+          "x-is-child": true
+        },
+        "Hebt u (en evt. uw partner) een levensverzekeringen (niet gekoppeld aan uw hypotheek), aandelen en/of obligaties?": {
+          "type": "string",
+          "readOnly": false,
+          "x-is-child": false,
+          "enum": [
+            "Ja",
+            "Nee"
+          ]
+        },
+        "Totale waarde van levensverzekeringen (niet gekoppeld aan uw hypotheek), aandelen en/of obligaties": {
+          "type": "number",
+          "readOnly": false,
+          "x-is-child": true
+        },
+        "Hebt u (en evt. uw partner) antiek, kunst, sieraden en/of waardevolle verzamelingen?": {
+          "type": "string",
+          "readOnly": false,
+          "x-is-child": false,
+          "enum": [
+            "Ja",
+            "Nee"
+          ]
+        },
+        "Totale waarde van antiek, kunst, sieraden en/of waardevolle verzamelingen": {
+          "type": "number",
+          "readOnly": false,
+          "x-is-child": true
+        },
+        "Hebt u (en evt. uw partner) cryptovaluta?": {
+          "type": "string",
+          "readOnly": false,
+          "x-is-child": false,
+          "enum": [
+            "Ja",
+            "Nee"
+          ]
+        },
+        "Totale waarde van de cryptovaluta": {
+          "type": "number",
+          "readOnly": false,
+          "x-is-child": true
+        },
+        "Kunt u (of iemand uit uw gezin) aanspraak maken op een erfenis?": {
+          "type": "string",
+          "readOnly": false,
+          "x-is-child": false,
+          "enum": [
+            "Ja",
+            "Nee"
+          ]
+        },
+        "Totale waarde erfenis": {
+          "type": "number",
+          "readOnly": false,
+          "x-is-child": true
+        },
+        "Hoeveel schulden hebt (en uw gezin) in totaal?": {
+          "type": "number",
+          "readOnly": false,
+          "x-is-child": false
+        }
+      },
+      "type": "object",
+      "required": [
+        "Hebt u (en evt. uw partner) (spaar)geld dat u kunt gebruiken voor uw eigen levensonderhoud?",
+        "Hebt u (en evt. uw partner) 1 of meer koopwoningen? (In Nederland of in het buitenland?)",
+        "Hebt u (en evt. uw partner) antiek, kunst, sieraden en/of waardevolle verzamelingen?",
+        "Hebt u (en evt. uw partner) cryptovaluta?",
+        "Hebt u (en evt. uw partner) een auto en/of motor?",
+        "Hebt u (en evt. uw partner) een camper, caravan en/of boot?",
+        "Hebt u (en evt. uw partner) een levensverzekeringen (niet gekoppeld aan uw hypotheek), aandelen en/of obligaties?",
+        "Hoeveel contant geld hebt u (en uw gezin) op dit moment?",
+        "Hoeveel schulden hebt (en uw gezin) in totaal?",
+        "Kunt u (of iemand uit uw gezin) aanspraak maken op een erfenis?",
+        "Zijn er spaar-, beleggingsproducten of levensverzekeringen gekoppeld aan de hypotheek?"
+      ],
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "Hebt u (en evt. uw partner) (spaar)geld dat u kunt gebruiken voor uw eigen levensonderhoud?": {
+                "const": "Ja"
+              }
+            },
+            "required": [
+              "Hebt u (en evt. uw partner) (spaar)geld dat u kunt gebruiken voor uw eigen levensonderhoud?"
+            ]
+          },
+          "then": {
+            "required": [
+              "Totale waarde van dat (spaar)geld"
+            ]
+          },
+          "else": {}
+        },
+        {
+          "if": {
+            "properties": {
+              "Hebt u (en evt. uw partner) 1 of meer koopwoningen? (In Nederland of in het buitenland?)": {
+                "const": "Ja"
+              }
+            },
+            "required": [
+              "Hebt u (en evt. uw partner) 1 of meer koopwoningen? (In Nederland of in het buitenland?)"
+            ]
+          },
+          "then": {
+            "required": [
+              "Noteer alle (WOZ) waardes van uw (en evt. uw partners) huizen",
+              "Noteer alle waardes van uw (en evt. uw partners) hypotheekschuld(en)"
+            ]
+          },
+          "else": {}
+        },
+        {
+          "if": {
+            "properties": {
+              "Zijn er spaar-, beleggingsproducten of levensverzekeringen gekoppeld aan de hypotheek?": {
+                "const": "Ja"
+              }
+            },
+            "required": [
+              "Zijn er spaar-, beleggingsproducten of levensverzekeringen gekoppeld aan de hypotheek?"
+            ]
+          },
+          "then": {
+            "required": [
+              "Wat is nu het spaar- of beleggingsbedrag?"
+            ]
+          },
+          "else": {}
+        },
+        {
+          "if": {
+            "properties": {
+              "Hebt u (en evt. uw partner) een auto en/of motor?": {
+                "const": "Ja"
+              }
+            },
+            "required": [
+              "Hebt u (en evt. uw partner) een auto en/of motor?"
+            ]
+          },
+          "then": {
+            "required": [
+              "Noteer alle dagwaardes van uw (en evt. uw partners) auto('s) en/of motor(en)",
+              "Noteer alle kentekens van uw (en evt. uw partners) auto('s) en/of motor(en)",
+              "Noteer of uw (en evt. uw partners) auto('s) en/of motor(en) privé of zakelijk zijn"
+            ]
+          },
+          "else": {}
+        },
+        {
+          "if": {
+            "properties": {
+              "Hebt u (en evt. uw partner) een camper, caravan en/of boot?": {
+                "const": "Ja"
+              }
+            },
+            "required": [
+              "Hebt u (en evt. uw partner) een camper, caravan en/of boot?"
+            ]
+          },
+          "then": {
+            "required": [
+              "Noteer de totale dagwaardes van uw (en evt. uw partners) camper, caravan en/of boot"
+            ]
+          },
+          "else": {}
+        },
+        {
+          "if": {
+            "properties": {
+              "Hebt u (en evt. uw partner) een levensverzekeringen (niet gekoppeld aan uw hypotheek), aandelen en/of obligaties?": {
+                "const": "Ja"
+              }
+            },
+            "required": [
+              "Hebt u (en evt. uw partner) een levensverzekeringen (niet gekoppeld aan uw hypotheek), aandelen en/of obligaties?"
+            ]
+          },
+          "then": {
+            "required": [
+              "Totale waarde van levensverzekeringen (niet gekoppeld aan uw hypotheek), aandelen en/of obligaties"
+            ]
+          },
+          "else": {}
+        },
+        {
+          "if": {
+            "properties": {
+              "Hebt u (en evt. uw partner) antiek, kunst, sieraden en/of waardevolle verzamelingen?": {
+                "const": "Ja"
+              }
+            },
+            "required": [
+              "Hebt u (en evt. uw partner) antiek, kunst, sieraden en/of waardevolle verzamelingen?"
+            ]
+          },
+          "then": {
+            "required": [
+              "Totale waarde van antiek, kunst, sieraden en/of waardevolle verzamelingen"
+            ]
+          },
+          "else": {}
+        },
+        {
+          "if": {
+            "properties": {
+              "Hebt u (en evt. uw partner) cryptovaluta?": {
+                "const": "Ja"
+              }
+            },
+            "required": [
+              "Hebt u (en evt. uw partner) cryptovaluta?"
+            ]
+          },
+          "then": {
+            "required": [
+              "Totale waarde van de cryptovaluta"
+            ]
+          },
+          "else": {}
+        },
+        {
+          "if": {
+            "properties": {
+              "Kunt u (of iemand uit uw gezin) aanspraak maken op een erfenis?": {
+                "const": "Ja"
+              }
+            },
+            "required": [
+              "Kunt u (of iemand uit uw gezin) aanspraak maken op een erfenis?"
+            ]
+          },
+          "then": {
+            "required": [
+              "Totale waarde erfenis"
+            ]
+          },
+          "else": {}
+        }
+      ]
+    },
+    "Uitbetaling": {
+      "properties": {
+        "Hier geeft u aan op welke bankrekening u de uitkering wilt ontvangen": {
+          "type": "boolean",
+          "readOnly": true,
+          "x-is-child": false
+        },
+        "Bankrekeningnummer ": {
+          "type": "string",
+          "readOnly": false,
+          "x-is-child": false
+        },
+        "Op naam van": {
+          "type": "string",
+          "readOnly": false,
+          "x-is-child": false
+        }
+      },
+      "type": "object",
+      "required": [
+        "Bankrekeningnummer ",
+        "Op naam van"
+      ]
+    },
+    "Verklaring": {
+      "properties": {
+        "Om uw aanvraag compleet te maken, kunt u gevraagd worden om additionele documenten aan te leveren. Hierover ontvangt u binnenkort een brief.": {
+          "type": "boolean",
+          "readOnly": true,
+          "x-is-child": false
+        },
+        "- Ik weet dat onjuiste informatie kan leiden tot terugvordering van de uitkering en/of een boete.\n- Ik weet dat ik alle veranderingen in mijn situatie omtrent vaste lasten, inkomsten en bezittingen meteen moet doorgeven aan de afdeling Werk en Inkomen.\n- Ik weet dat mijn gegevens kunnen worden doorgestuurd naar externe organisaties voor een bedrijfseconomisch advies en/of schuldverificatie. Ik geef hierbij toestemming aan de gemeente om mijn gegevens uit te wisselen in het belang van mijn aanvraag.": {
+          "type": "boolean",
+          "readOnly": true,
+          "x-is-child": false
+        },
+        "Ik ga akkoord met bovenstaande verklaring.": {
+          "type": "string",
+          "readOnly": false,
+          "x-is-child": false,
+          "enum": [
+            "Ja",
+            "Nee"
+          ]
+        }
+      },
+      "type": "object",
+      "required": [
+        "Ik ga akkoord met bovenstaande verklaring."
+      ]
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "Andere inkomsten",
+    "Bedrijfsgegevens",
+    "Bezittingen en schulden",
+    "Gezinssituatie",
+    "Medebewoners",
+    "Uitbetaling",
+    "Uw gegevens",
+    "Verklaring",
+    "Voorwaarden",
+    "Wat vraagt u aan?"
+  ]
+}

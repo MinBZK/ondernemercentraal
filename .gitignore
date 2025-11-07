@@ -1,0 +1,7 @@
+backend/.coverage
+backend/storage/*
+deployment/secret.txt
+backend/.ruff_cache
+backend/.env
+backend/.venv
+backend/**/__pycache__/*

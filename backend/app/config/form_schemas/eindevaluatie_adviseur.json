@@ -1,0 +1,47 @@
+{
+  "type": "object",
+  "properties": {
+    "Datum eindevaluatie": {
+      "type": "string",
+      "format": "date"
+    },
+    "Welk cijfer geeft de ondernemer aan zijn onderneming voor het traject?": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 10
+    },
+    "Traject heeft geleid tot meer inzicht en bekwaamheid bij het ondernemen/financiën/baanmogelijkheden": {
+      "type": "string",
+      "enum": [
+        "Onvoldoende",
+        "Voldoende",
+        "Goed"
+      ]
+    },
+    "Heeft de partner vooraf duidelijke doelen besproken met de ondernemer?": {
+      "type": "string",
+      "enum": [
+        "Ja",
+        "Nee"
+      ]
+    },
+    "Welk cijfer geeft de ondernemer aan zijn onderneming na het traject?": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 10
+    },
+    "Hoe waardeert de ondernemer het totale traject?": {
+      "type": "integer",
+      "minimum": 1,
+      "maximum": 10
+    }
+  },
+  "required": [
+    "Datum eindevaluatie",
+    "Welk cijfer geeft de ondernemer aan zijn onderneming voor het traject?",
+    "Traject heeft geleid tot meer inzicht en bekwaamheid bij het ondernemen/financiën/baanmogelijkheden",
+    "Heeft de partner vooraf duidelijke doelen besproken met de ondernemer?",
+    "Welk cijfer geeft de ondernemer aan zijn onderneming na het traject?",
+    "Hoe waardeert de ondernemer het totale traject?"
+  ]
+}

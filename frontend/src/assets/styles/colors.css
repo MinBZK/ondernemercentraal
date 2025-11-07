@@ -1,0 +1,17 @@
+@import './utrecht.css';
+
+:root {
+  --red: var(--utrecht-color-red-40);
+  --red-dark: var(--utrecht-color-red-30);
+  --blue: var(--utrecht-color-blue-35);
+  --blue-dark: var(--utrecht-color-blue-35);
+  --grey: var(--utrecht-color-grey-30);
+  --grey-light: var(--utrecht-color-grey-80);
+  --grey-dark: var(--utrecht-color-grey-15);
+  --yellow: var(--utrecht-color-yellow-80);
+  --yellow-dark: var(--utrecht-color-yellow-50);
+
+  --primary: var(--red-dark);
+  --secondary: var(--blue-dark);
+  --tertiary: var(--grey-dark);
+}

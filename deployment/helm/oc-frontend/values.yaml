@@ -1,0 +1,6 @@
+namespace: default
+
+projectSlug: "alp"
+configmapName: "oc-frontend-config"
+appLabelName: "oc-frontend"
+imageLabelName: "oc-frontend"

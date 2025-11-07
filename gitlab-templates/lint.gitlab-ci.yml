@@ -1,0 +1,25 @@
+.vue-lint:
+  variables:
+    # HARBOR_REPO: ""
+    TEST_FOLDER: ""
+  image:
+    name: harbor-gn2.cicd.s15m.nl/docker-hub-proxy/library/node:18-alpine
+    entrypoint: [""]
+  before_script:
+    - echo "Started by ${GITLAB_USER_LOGIN} at $(date +%Y-%m-%d'-'%H-%M-%S)"
+    - cd $TEST_FOLDER
+    - if [ ! -d "$TEST_FOLDER/node_modules" ]; then npm ci --legacy-peer-deps; fi
+  script:
+    - make check
+  artifacts:
+    paths:
+      - frontend/node_modules
+
+.sonarqube-check:
+  image:
+    name: harbor-gn2.cicd.s15m.nl/docker-hub-proxy/sonarsource/sonar-scanner-cli
+    entrypoint: [""]
+  before_script:
+    - if [ ! -f "backend/coverage.xml" ]; then echo 'coverage.xml is not found'; fi
+  script:
+    - sonar-scanner -Dsonar.python.coverage.reportPaths=backend/coverage.xml

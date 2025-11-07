@@ -1,0 +1,40 @@
+# backend testing
+.pytest:
+  services:
+    - harbor-gn2.cicd.s15m.nl/docker-hub-proxy/library/postgres:15-alpine  
+  variables:
+    WORKING_DIRECTORY: ""
+    TEST_IMAGE: ""
+    POSTGRES_PORT: 5432
+    POSTGRES_DB: ocdata
+    POSTGRES_USER: postgres
+    POSTGRES_PASSWORD: postgres
+    POSTGRES_SERVER: localhost
+    POSTGRES_HOST_AUTH_METHOD: trust
+    DISABLE_AUTH: 1
+    DISABLE_SECURITY_CHECK: 1
+    KEYCLOAK_URI: dummy
+    KEYCLOAK_API_CLIENT: dummy
+    KEYCLOAK_API_SECRET: dummy
+    KEYCLOAK_API_URI: dummy
+    SECRET_KEY: dummydummydummydummydummydummy
+    CLIENT_BASE_URL: http://localhost
+    EMAIL_RELAY_HOSTNAME: http://localhost
+  image:
+    name: $TEST_IMAGE
+    entrypoint: [""]
+    
+  before_script:
+    - cd $WORKING_DIRECTORY
+    - alembic upgrade head
+  script:
+    # - if [ ! -d "$PWD/tests" ]; then echo "No tests found at $PWD/tests" && alembic downgrade base && exit 2; fi
+    - coverage run -m pytest
+    - coverage xml
+    - coverage report
+  allow_failure:
+    exit_codes: # Exit with warning when no tests are found
+      - 2
+  artifacts:
+    paths:
+      - $WORKING_DIRECTORY/coverage.xml

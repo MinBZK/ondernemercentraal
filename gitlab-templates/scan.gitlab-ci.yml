@@ -1,0 +1,68 @@
+.image_scan:
+  variables:
+    REPO: ''
+    CONTEXT_DIR: ''
+  image:
+    name: harbor-gn2.cicd.s15m.nl/ictu-devops-pub/trivy:latest
+    entrypoint: [""]
+  script:
+    - echo "scanning $REPO"
+    - mkdir -p /root/.docker
+    - PASSWORD_DECODED=$(echo $HARBOR_ROBOT_SECRET | base64 -d)
+    - echo "{\"auths\":{\"$HARBOR_REG\":{\"username\":\"$HARBOR_ROBOT_NAME\",\"password\":\"$PASSWORD_DECODED\"}}}" > /root/.docker/config.json # Harbor credentials for pushing
+    - trivy image ${REPO} --format=json -o trivy-image-report.json
+    - trivy image ${REPO} --exit-code 1 --severity CRITICAL # fail stage on CRITICAL or HIGH finding
+    - trivy sonarqube trivy-image-report.json -- filePath=${CONTEXT_DIR}/Dockerfile > trivy-image-sonarqube.json
+  allow_failure: true
+  artifacts:
+    paths:
+    - trivy-image-report.json
+    - trivy-image-sonarqube.json
+  only:
+    - tags
+    - merge_requests
+
+
+.filesystem_scan:
+  variables:
+    TEST_FOLDER: ''
+  image:
+    name: harbor-gn2.cicd.s15m.nl/ictu-devops-pub/trivy:latest
+    entrypoint: [""]
+  before_script:
+    - cd $TEST_FOLDER
+  script:
+    - trivy fs ./ --skip-dirs node_modules --format=json -o trivy-file-report.json
+    - trivy fs ./ --skip-dirs node_modules --exit-code 1 --severity CRITICAL # fail stage on CRITICAL finding
+    - trivy sonarqube trivy-file-report.json > trivy-file-sonarqube.json
+  allow_failure: true
+  artifacts:
+    paths:
+    - trivy-file-report.json
+    - trivy-file-sonarqube.json
+  only:
+    - tags
+
+# .zap-scan:
+#   variables:
+#     URL: ''
+#   image:
+#     name: harbor-gn2.cicd.s15m.nl/ictu-devops-pub/owasp-zap2docker-weekly
+#   only:
+#     - merge_requests
+#     - tags
+#   allow_failure: true
+#   script:
+#     - zap.sh -cmd -quickurl $URL -quickprogress -quickout $PWD/zap_report.xml
+#     - echo $PWD
+#   artifacts:
+#     paths:
+#       - zap_report.xml
+
+# report-scan:
+#   stage: scan
+#   image: harbor-gn2.cicd.s15m.nl/ictu-devops-pub/sonarsource/sonar-scanner-cli
+#   needs:
+#     - container_scanning
+#   script:
+#     - sonar-scanner -D sonar.externalIssuesReportPaths="sonar-deps-report.json"

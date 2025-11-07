@@ -1,0 +1,14 @@
+namespace: ictu-devops-prd
+replicaCount: 2
+keycloak:
+  uri: https://s01.i8s.nl
+  client: authentication-client
+  realm: oc_portaal
+  apiClient: service-client
+  apiUrl: https://keycloak-admin.ictu-devops-prd.prod4.s15m.nl
+clamavHost: clamav.ictu-devops-prd.svc
+clamavPort: 3310
+clientBaseUrl: s02.i8s.nl
+requireTotp: "1"
+minioHost: filestorage.ictu-devops-prd.prod4.s15m.nl
+tenantName: "Gemeente Utrecht"

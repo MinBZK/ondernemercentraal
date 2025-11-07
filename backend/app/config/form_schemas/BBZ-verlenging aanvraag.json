@@ -1,0 +1,808 @@
+{
+  "type": "object",
+  "properties": {
+    "Wat vraagt u aan?": {
+      "properties": {
+        "U kunt met dit formulier verlenging van uw lopende Bbz-uitkering aanvragen": {
+          "type": "boolean",
+          "readOnly": true,
+          "x-is-child": false
+        },
+        "Wat voor soort ondernemer bent u?": {
+          "type": "string",
+          "readOnly": false,
+          "x-is-child": false,
+          "enum": [
+            "Een arbeidsongeschikte ondernemer",
+            "Een starter of een gevestigde ondernemer",
+            "Een beëindigende ondernemer"
+          ]
+        }
+      },
+      "type": "object",
+      "required": [
+        "Wat voor soort ondernemer bent u?"
+      ]
+    },
+    "Uw  gegevens": {
+      "properties": {
+        "Voorletter(s)": {
+          "type": "string",
+          "readOnly": false,
+          "x-is-child": false
+        },
+        "Tussenvoegsel(s)": {
+          "type": "string",
+          "readOnly": false,
+          "x-is-child": false
+        },
+        "Achternaam ": {
+          "type": "string",
+          "readOnly": false,
+          "x-is-child": false
+        },
+        "Geboortedatum ": {
+          "type": "string",
+          "readOnly": false,
+          "x-is-child": false,
+          "format": "date"
+        },
+        "Postcode ": {
+          "type": "string",
+          "readOnly": false,
+          "x-is-child": false
+        },
+        "Huisnummer": {
+          "type": "number",
+          "readOnly": false,
+          "x-is-child": false
+        },
+        "Huisletter": {
+          "type": "string",
+          "readOnly": false,
+          "x-is-child": false
+        },
+        "Huisnummertoevoeging": {
+          "type": "string",
+          "readOnly": false,
+          "x-is-child": false
+        },
+        "Straatnaam": {
+          "type": "string",
+          "readOnly": false,
+          "x-is-child": false
+        },
+        "Woonplaats": {
+          "type": "string",
+          "readOnly": false,
+          "x-is-child": false
+        },
+        "Telefoonnummer": {
+          "type": "string",
+          "readOnly": false,
+          "x-is-child": false
+        },
+        "E-mailadres": {
+          "type": "string",
+          "readOnly": false,
+          "x-is-child": false
+        }
+      },
+      "type": "object",
+      "required": [
+        "Achternaam ",
+        "E-mailadres",
+        "Geboortedatum ",
+        "Huisnummer",
+        "Postcode ",
+        "Straatnaam",
+        "Telefoonnummer",
+        "Voorletter(s)",
+        "Woonplaats"
+      ]
+    },
+    "Partnergegevens": {
+      "properties": {
+        "U bent partners als u:\n\n - getrouwd of geregistreerd partners bent, of\n - op hetzelfde adres woont en:\n   - samen een huishouden hebt;\n   - ex-echtgenoten of ex-partners bent;\n   - samen een kind hebt;\n   - u het kind van uw partner hebt erkend of uw partner uw kind heeft erkend;\n   - ergens anders als partners geregistreerd staat, bijvoorbeeld bij de Belastingdienst of als medeverzekerde bij een zorgverzekering.\n\nBent u een ouder die samenwoont met een meerderjarig kind? Dan gelden u en uw kind niet als elkaars partners.": {
+          "type": "boolean",
+          "readOnly": true,
+          "x-is-child": false
+        },
+        "Heeft u een partner?": {
+          "type": "string",
+          "readOnly": false,
+          "x-is-child": false,
+          "enum": [
+            "Ja",
+            "Nee"
+          ]
+        },
+        "Burgerservicenummer (BSN)": {
+          "type": "number",
+          "readOnly": false,
+          "x-is-child": true
+        },
+        "Voorletter(s)": {
+          "type": "string",
+          "readOnly": false,
+          "x-is-child": true
+        },
+        "Tussenvoegsel(s)": {
+          "type": "string",
+          "readOnly": false,
+          "x-is-child": true
+        },
+        "Achternaam ": {
+          "type": "string",
+          "readOnly": false,
+          "x-is-child": true
+        },
+        "Geboortedatum ": {
+          "type": "string",
+          "readOnly": false,
+          "x-is-child": true,
+          "format": "date"
+        },
+        "E-mailadres": {
+          "type": "string",
+          "readOnly": false,
+          "x-is-child": true
+        }
+      },
+      "type": "object",
+      "required": [
+        "Heeft u een partner?"
+      ],
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "Heeft u een partner?": {
+                "const": "Ja"
+              }
+            },
+            "required": [
+              "Heeft u een partner?"
+            ]
+          },
+          "then": {
+            "required": [
+              "Achternaam ",
+              "Burgerservicenummer (BSN)",
+              "E-mailadres",
+              "Geboortedatum ",
+              "Tussenvoegsel(s)",
+              "Voorletter(s)"
+            ]
+          },
+          "else": {}
+        }
+      ]
+    },
+    "Medebewoners": {
+      "properties": {
+        "### Wanneer is er sprake van samenwonen?\nU woont samen met uw broer of zus, waarmee u een gezamenlijk huishouden voert.\nOuders die samenwonen met meerderjarige kinderen zien wij niet als een gezamenlijk huishouden.": {
+          "type": "boolean",
+          "readOnly": true,
+          "x-is-child": false
+        },
+        "Woont u met meer volwassenen (27 jaar of ouder) in 1 huis, kamer of etage? Dan kunt u de woonkosten delen. Dit kan van invloed zijn op de hoogte van uw uitkering.": {
+          "type": "boolean",
+          "readOnly": true,
+          "x-is-child": false
+        },
+        "Wonen er nog meer mensen in de woning naast uw partner of kinderen?": {
+          "type": "string",
+          "readOnly": false,
+          "x-is-child": false,
+          "enum": [
+            "Ja",
+            "Nee"
+          ]
+        },
+        "Medebewoner 1: Voorletter(s)": {
+          "type": "string",
+          "readOnly": false,
+          "x-is-child": true
+        },
+        "Medebewoner 1: Tussenvoegsel(s)": {
+          "type": "string",
+          "readOnly": false,
+          "x-is-child": true
+        },
+        "Medebewoner 1: Achternaam ": {
+          "type": "string",
+          "readOnly": false,
+          "x-is-child": true
+        },
+        "Medebewoner 1: Geboortedatum ": {
+          "type": "string",
+          "readOnly": false,
+          "x-is-child": true,
+          "format": "date"
+        },
+        "Medebewoner 1: E-mailadres": {
+          "type": "string",
+          "readOnly": false,
+          "x-is-child": true
+        },
+        "Medebewoner 1: Geef aan wat uw relatie is tot deze medebewoner": {
+          "type": "string",
+          "readOnly": false,
+          "x-is-child": true,
+          "enum": [
+            "Ouder",
+            "Schoonouder",
+            "Opa,oma,broer of zus",
+            "Iemand die een kamer bij mij huurt",
+            "Verhuurder",
+            "Kostganger of kostgever",
+            "Anders"
+          ]
+        },
+        "Medebewoner 1: Andere relatie, namelijk:": {
+          "type": "string",
+          "readOnly": false,
+          "x-is-child": true
+        },
+        "Wilt  u nog een medebewoner opgeven? ": {
+          "type": "string",
+          "readOnly": false,
+          "x-is-child": true,
+          "enum": [
+            "Ja",
+            "Nee"
+          ]
+        },
+        "Medebewoner 2: Voorletter(s)": {
+          "type": "string",
+          "readOnly": false,
+          "x-is-child": true
+        },
+        "Medebewoner 2: Tussenvoegsel(s)": {
+          "type": "string",
+          "readOnly": false,
+          "x-is-child": true
+        },
+        "Medebewoner 2: Achternaam ": {
+          "type": "string",
+          "readOnly": false,
+          "x-is-child": true
+        },
+        "Medebewoner 2: Geboortedatum ": {
+          "type": "string",
+          "readOnly": false,
+          "x-is-child": true,
+          "format": "date"
+        },
+        "Medebewoner 2: E-mailadres": {
+          "type": "string",
+          "readOnly": false,
+          "x-is-child": true
+        },
+        "Medebewoner 2: Geef aan wat uw relatie is tot deze medebewoner": {
+          "type": "string",
+          "readOnly": false,
+          "x-is-child": true,
+          "enum": [
+            "Ouder",
+            "Schoonouder",
+            "Opa,oma,broer of zus",
+            "Iemand die een kamer bij mij huurt",
+            "Verhuurder",
+            "Kostganger of kostgever",
+            "Anders"
+          ]
+        },
+        "Medebewoner 2: Andere relatie, namelijk:": {
+          "type": "string",
+          "readOnly": false,
+          "x-is-child": true
+        }
+      },
+      "type": "object",
+      "required": [
+        "Wonen er nog meer mensen in de woning naast uw partner of kinderen?"
+      ],
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "Wonen er nog meer mensen in de woning naast uw partner of kinderen?": {
+                "const": "Ja"
+              }
+            },
+            "required": [
+              "Wonen er nog meer mensen in de woning naast uw partner of kinderen?"
+            ]
+          },
+          "then": {
+            "required": [
+              "Medebewoner 1: Achternaam ",
+              "Medebewoner 1: E-mailadres",
+              "Medebewoner 1: Geboortedatum ",
+              "Medebewoner 1: Geef aan wat uw relatie is tot deze medebewoner",
+              "Medebewoner 1: Tussenvoegsel(s)",
+              "Medebewoner 1: Voorletter(s)",
+              "Wilt  u nog een medebewoner opgeven? "
+            ],
+            "allOf": [
+              {
+                "if": {
+                  "properties": {
+                    "Wilt  u nog een medebewoner opgeven? ": {
+                      "const": "Ja"
+                    }
+                  },
+                  "required": [
+                    "Wilt  u nog een medebewoner opgeven? "
+                  ]
+                },
+                "then": {
+                  "required": [
+                    "Medebewoner 2: Achternaam ",
+                    "Medebewoner 2: E-mailadres",
+                    "Medebewoner 2: Geboortedatum ",
+                    "Medebewoner 2: Geef aan wat uw relatie is tot deze medebewoner",
+                    "Medebewoner 2: Tussenvoegsel(s)",
+                    "Medebewoner 2: Voorletter(s)"
+                  ],
+                  "allOf": [
+                    {
+                      "if": {
+                        "properties": {
+                          "Medebewoner 2: Geef aan wat uw relatie is tot deze medebewoner": {
+                            "const": "Anders"
+                          }
+                        },
+                        "required": [
+                          "Medebewoner 2: Geef aan wat uw relatie is tot deze medebewoner"
+                        ]
+                      },
+                      "then": {
+                        "required": [
+                          "Medebewoner 2: Andere relatie, namelijk:"
+                        ]
+                      },
+                      "else": {}
+                    }
+                  ]
+                },
+                "else": {}
+              }
+            ]
+          },
+          "else": {}
+        }
+      ]
+    },
+    "Gegevens bedrijf": {
+      "properties": {
+        "Naam bedrijf ": {
+          "type": "string",
+          "readOnly": false,
+          "x-is-child": false
+        },
+        "KvK-nummer": {
+          "type": "number",
+          "readOnly": false,
+          "x-is-child": false
+        }
+      },
+      "type": "object",
+      "required": [
+        "KvK-nummer",
+        "Naam bedrijf "
+      ]
+    },
+    "Inkomsten": {
+      "properties": {
+        "Hebt u (en evt. uw partner) inkomsten uit een eigen onderneming? ": {
+          "type": "string",
+          "readOnly": false,
+          "x-is-child": false,
+          "enum": [
+            "Ja",
+            "Nee"
+          ]
+        },
+        "Totaal inkomsten uit onderneming per maand (omzet-kosten)": {
+          "type": "number",
+          "readOnly": false,
+          "x-is-child": true
+        },
+        "Heeft u (en evt. uw partner) nog andere inkomsten?": {
+          "type": "string",
+          "readOnly": false,
+          "x-is-child": false,
+          "enum": [
+            "Ja",
+            "Nee"
+          ]
+        },
+        "Wat voor soort inkomsten heeft u (en evt. uw partner)?": {
+          "type": "string",
+          "readOnly": false,
+          "x-is-child": true,
+          "enum": [
+            "Inkomsten uit betaald werk",
+            "Inkomsten uit een uitkering",
+            "Een pensioen",
+            "Overige inkomsten"
+          ]
+        },
+        "Werkgever/ bedrijfsnaam": {
+          "type": "string",
+          "readOnly": false,
+          "x-is-child": true
+        },
+        "Wat is uw netto loon op uw loonstrook?": {
+          "type": "number",
+          "readOnly": false,
+          "x-is-child": true
+        },
+        "Wat voor soort uitkering krijgt u?": {
+          "type": "string",
+          "readOnly": false,
+          "x-is-child": true,
+          "enum": [
+            "Ww",
+            "Ziektewet",
+            "Wao",
+            "Waz",
+            "Wajong",
+            "Wazo",
+            "Wga(wia)",
+            "Iva(wia)",
+            "Partipatiewet (bijstanduitkering)"
+          ]
+        },
+        "Wat is uw netto bedrag op uw specificatie (met toeslagen)?": {
+          "type": "number",
+          "readOnly": false,
+          "x-is-child": true
+        },
+        "Wat voor pensioen krijgt u?": {
+          "type": "string",
+          "readOnly": false,
+          "x-is-child": true
+        },
+        "Wat is uw netto bedrag op uw specificatie?": {
+          "type": "number",
+          "readOnly": false,
+          "x-is-child": true
+        },
+        "Wat voor overige inkomsten heeft u (en evt. uw partner)?": {
+          "type": "string",
+          "readOnly": false,
+          "x-is-child": true
+        },
+        "Wat krijgt u (en evt. uw partner) netto?": {
+          "type": "number",
+          "readOnly": false,
+          "x-is-child": true
+        },
+        "Uitbetaling is per ?": {
+          "type": "string",
+          "readOnly": false,
+          "x-is-child": true,
+          "enum": [
+            "Week",
+            "4 weken",
+            "Maand"
+          ]
+        }
+      },
+      "type": "object",
+      "required": [
+        "Hebt u (en evt. uw partner) inkomsten uit een eigen onderneming? ",
+        "Heeft u (en evt. uw partner) nog andere inkomsten?"
+      ],
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "Hebt u (en evt. uw partner) inkomsten uit een eigen onderneming? ": {
+                "const": "Ja"
+              }
+            },
+            "required": [
+              "Hebt u (en evt. uw partner) inkomsten uit een eigen onderneming? "
+            ]
+          },
+          "then": {
+            "required": [
+              "Totaal inkomsten uit onderneming per maand (omzet-kosten)"
+            ]
+          },
+          "else": {}
+        },
+        {
+          "if": {
+            "properties": {
+              "Heeft u (en evt. uw partner) nog andere inkomsten?": {
+                "const": "Ja"
+              }
+            },
+            "required": [
+              "Heeft u (en evt. uw partner) nog andere inkomsten?"
+            ]
+          },
+          "then": {
+            "required": [
+              "Wat voor soort inkomsten heeft u (en evt. uw partner)?"
+            ],
+            "allOf": [
+              {
+                "if": {
+                  "properties": {
+                    "Wat voor soort inkomsten heeft u (en evt. uw partner)?": {
+                      "const": "Inkomsten uit betaald werk"
+                    }
+                  },
+                  "required": [
+                    "Wat voor soort inkomsten heeft u (en evt. uw partner)?"
+                  ]
+                },
+                "then": {
+                  "required": [
+                    "Wat is uw netto loon op uw loonstrook?",
+                    "Werkgever/ bedrijfsnaam"
+                  ]
+                },
+                "else": {}
+              },
+              {
+                "if": {
+                  "properties": {
+                    "Wat voor soort inkomsten heeft u (en evt. uw partner)?": {
+                      "const": "Inkomsten uit uitkering"
+                    }
+                  },
+                  "required": [
+                    "Wat voor soort inkomsten heeft u (en evt. uw partner)?"
+                  ]
+                },
+                "then": {
+                  "required": [
+                    "Wat is uw netto bedrag op uw specificatie (met toeslagen)?",
+                    "Wat voor soort uitkering krijgt u?"
+                  ]
+                },
+                "else": {}
+              },
+              {
+                "if": {
+                  "properties": {
+                    "Wat voor soort inkomsten heeft u (en evt. uw partner)?": {
+                      "const": "Een pensioen"
+                    }
+                  },
+                  "required": [
+                    "Wat voor soort inkomsten heeft u (en evt. uw partner)?"
+                  ]
+                },
+                "then": {
+                  "required": [
+                    "Wat is uw netto bedrag op uw specificatie?",
+                    "Wat voor pensioen krijgt u?"
+                  ]
+                },
+                "else": {}
+              },
+              {
+                "if": {
+                  "properties": {
+                    "Wat voor soort inkomsten heeft u (en evt. uw partner)?": {
+                      "const": "Overige inkomsten"
+                    }
+                  },
+                  "required": [
+                    "Wat voor soort inkomsten heeft u (en evt. uw partner)?"
+                  ]
+                },
+                "then": {
+                  "required": [
+                    "Uitbetaling is per ?",
+                    "Wat krijgt u (en evt. uw partner) netto?",
+                    "Wat voor overige inkomsten heeft u (en evt. uw partner)?"
+                  ]
+                },
+                "else": {}
+              }
+            ]
+          },
+          "else": {}
+        }
+      ]
+    },
+    "Vermogen": {
+      "properties": {
+        "Als u geen Nederlandse of buitenlandse bankrekening(en) heeft kunt u deze velden leeg laten.": {
+          "type": "boolean",
+          "readOnly": true,
+          "x-is-child": false
+        },
+        "Noteer alle bankrekeningnummers van uw (en evt. uw partners) Nederlandse bankrekeningen": {
+          "type": "string",
+          "readOnly": false,
+          "x-is-child": false
+        },
+        "Nederlandse bankrekening(en): Op naam van": {
+          "type": "string",
+          "readOnly": false,
+          "x-is-child": false
+        },
+        "Nederlandse bankrekening(en): Huidige saldo('s)": {
+          "type": "string",
+          "readOnly": false,
+          "x-is-child": false
+        },
+        "Noteer alle bankrekeningnummers van uw (en evt. uw partners) buitenlandse bankrekeningen": {
+          "type": "string",
+          "readOnly": false,
+          "x-is-child": false
+        },
+        "Buitenlandse bankrekening(en): Op naam van": {
+          "type": "string",
+          "readOnly": false,
+          "x-is-child": false
+        },
+        "Buitenlandse bankrekening(en): Huidige saldo('s)": {
+          "type": "string",
+          "readOnly": false,
+          "x-is-child": false
+        },
+        "Hebt u (en evt. uw partner) (spaar)geld dat u kunt gebruiken voor uw eigen levensonderhoud?": {
+          "type": "string",
+          "readOnly": false,
+          "x-is-child": false,
+          "enum": [
+            "Ja",
+            "Nee"
+          ]
+        },
+        "Totale waarde van dat (spaar)geld": {
+          "type": "number",
+          "readOnly": false,
+          "x-is-child": true
+        },
+        "Hebt u (en evt. uw partner) een erfenis of gift ontvangen?": {
+          "type": "string",
+          "readOnly": false,
+          "x-is-child": false,
+          "enum": [
+            "Ja",
+            "Nee"
+          ]
+        },
+        "Totale waarde van de erfenis en/of gift": {
+          "type": "number",
+          "readOnly": false,
+          "x-is-child": true
+        },
+        "Hebt u (en evt. uw partner) cryptovaluta?": {
+          "type": "string",
+          "readOnly": false,
+          "x-is-child": false,
+          "enum": [
+            "Ja",
+            "Nee"
+          ]
+        },
+        "Totale waarde van de cryptovaluta": {
+          "type": "number",
+          "readOnly": false,
+          "x-is-child": true
+        }
+      },
+      "type": "object",
+      "required": [
+        "Buitenlandse bankrekening(en): Huidige saldo('s)",
+        "Buitenlandse bankrekening(en): Op naam van",
+        "Hebt u (en evt. uw partner) (spaar)geld dat u kunt gebruiken voor uw eigen levensonderhoud?",
+        "Hebt u (en evt. uw partner) cryptovaluta?",
+        "Hebt u (en evt. uw partner) een erfenis of gift ontvangen?",
+        "Nederlandse bankrekening(en): Huidige saldo('s)",
+        "Nederlandse bankrekening(en): Op naam van",
+        "Noteer alle bankrekeningnummers van uw (en evt. uw partners) Nederlandse bankrekeningen",
+        "Noteer alle bankrekeningnummers van uw (en evt. uw partners) buitenlandse bankrekeningen"
+      ],
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "Hebt u (en evt. uw partner) (spaar)geld dat u kunt gebruiken voor uw eigen levensonderhoud?": {
+                "const": "Ja"
+              }
+            },
+            "required": [
+              "Hebt u (en evt. uw partner) (spaar)geld dat u kunt gebruiken voor uw eigen levensonderhoud?"
+            ]
+          },
+          "then": {
+            "required": [
+              "Totale waarde van dat (spaar)geld"
+            ]
+          },
+          "else": {}
+        },
+        {
+          "if": {
+            "properties": {
+              "Hebt u (en evt. uw partner) een erfenis of gift ontvangen?": {
+                "const": "Ja"
+              }
+            },
+            "required": [
+              "Hebt u (en evt. uw partner) een erfenis of gift ontvangen?"
+            ]
+          },
+          "then": {
+            "required": [
+              "Totale waarde van de erfenis en/of gift"
+            ]
+          },
+          "else": {}
+        },
+        {
+          "if": {
+            "properties": {
+              "Hebt u (en evt. uw partner) cryptovaluta?": {
+                "const": "Ja"
+              }
+            },
+            "required": [
+              "Hebt u (en evt. uw partner) cryptovaluta?"
+            ]
+          },
+          "then": {
+            "required": [
+              "Totale waarde van de cryptovaluta"
+            ]
+          },
+          "else": {}
+        }
+      ]
+    },
+    "Verklaring": {
+      "properties": {
+        "Om uw aanvraag compleet te maken, kunt u gevraagd worden om additionele documenten aan te leveren. Hierover ontvangt u binnenkort een brief.": {
+          "type": "boolean",
+          "readOnly": true,
+          "x-is-child": false
+        },
+        "- Ik heb alle vragen volledig en naar waarheid beantwoord.\n- Ik weet dat ik strafbaar ben als ik niet de juiste of onvolledige informatie geef:\n  - Ik moet de uitkering dan geheel of gedeeltelijk terugbetalen.\n  - Ik weet dat ik alle veranderingen in mijn woonsituatie, vaste lasten, inkomsten en bezittingen direct moet doorgeven aan de gemeente.\n\nAls u een Bbz-uitkering of Ioaz-uitkering aanvraagt of ontvangt, kan het zijn dat wij uw gegevens willen doorsturen naar externe organisaties. Dit is dan voor een bedrijfseconomisch advies of voor controle van schulden.\n- Ik geef de gemeente hierbij toestemming om uw gegevens door te sturen als dat nodig is.": {
+          "type": "boolean",
+          "readOnly": true,
+          "x-is-child": false
+        },
+        "Ik ga akkoord met bovenstaande verklaring ": {
+          "type": "string",
+          "readOnly": false,
+          "x-is-child": false,
+          "enum": [
+            "Ja",
+            "Nee"
+          ]
+        }
+      },
+      "type": "object",
+      "required": [
+        "Ik ga akkoord met bovenstaande verklaring ",
+        "Om uw aanvraag compleet te maken, kunt u gevraagd worden om additionele documenten aan te leveren. Hierover ontvangt u binnenkort een brief."
+      ]
+    }
+  },
+  "additionalProperties": false,
+  "required": [
+    "Gegevens bedrijf",
+    "Inkomsten",
+    "Medebewoners",
+    "Partnergegevens",
+    "Uw  gegevens",
+    "Verklaring",
+    "Vermogen",
+    "Wat vraagt u aan?"
+  ]
+}

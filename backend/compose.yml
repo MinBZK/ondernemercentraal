@@ -1,0 +1,120 @@
+name: oc-backend
+services:
+  api:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+      args:
+        BASE_IMAGE: oc-backend-base
+    ports:
+      - ${FASTAPI_PORT:-8000}:8000
+    environment:
+      # The following variables cannot be overwitten by environment variables,
+      # because they refer to other Docker services which are defined in this compose file.
+      POSTGRES_SERVER: db
+      POSTGRES_PORT: 5432
+      MINIO_HOST: minio
+      MINIO_HOST_PORT: 9000
+      KEYCLOAK_API_URI: http://keycloak:8080
+      CLAMAV_HOST: clamav
+
+      # The following variables can be overwritten by environment variables
+      KEYCLOAK_API_SECRET: ${KEYCLOAK_API_SECRET:-this_is_an_unsafe_secret_you_must_change_it}
+      KEYCLOAK_API_CLIENT: ${KEYCLOAK_API_CLIENT:-service-client}
+      KEYCLOAK_URI: ${KEYCLOAK_URI:-http://localhost:8080}
+      SECRET_KEY: ${SECRET_KEY:-this_is_an_unsafe_secret_you_must_change_it}
+      EMAIL_ENABLED: ${EMAIL_ENABLED:-0}
+      CLIENT_BASE_URL: ${CLIENT_BASE_URL:-http://localhost:5173}
+    volumes:
+      - ./alembic:/backend/alembic
+      - ./alembic.ini:/backend/alembic.ini
+      - ./app:/backend/app
+      - ./tests:/backend/tests
+      - ./pyproject.toml:/backend/pyproject.toml
+      - ./uv.lock:/backend/uv.lock
+      - ./start.sh:/backend/start.sh
+    command: /bin/sh -c "
+        alembic upgrade head && \
+        python -m app.scripts.init && \
+        uvicorn app.main:app --reload --host 0.0.0.0"
+    depends_on:
+      - db
+      - minio
+      - keycloak
+      - clamav
+    profiles:
+      - app
+  
+  db:
+    image: postgres:15.4
+    ports:
+      - ${POSTGRES_PORT:-5432}:5432
+    volumes:
+      - db:/var/lib/postgresql/data
+      - ./db/init/:/docker-entrypoint-initdb.d
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
+      POSTGRES_DB: ${POSTGRES_DB:-ocdata}
+
+  dbgate:
+    image: dbgate/dbgate:alpine
+    volumes:
+      - dbgate:/root/.dbgate
+    depends_on:
+      - db
+    ports:
+      - ${DBGATE_PORT:-3000}:3000
+    environment:
+      # docs: https://dbgate.org/docs/env-variables.html
+      CONNECTIONS: 'CON1'
+      LABEL_CON1: 'Postgres'
+      SERVER_CON1: 'db'
+      USER_CON1: ${POSTGRES_USER:-postgres}
+      PASSWORD_CON1: ${POSTGRES_PASSWORD:-postgres}
+      PORT_CON1: 5432
+      ENGINE_CON1: postgres@dbgate-plugin-postgres
+
+  minio:
+    image: quay.io/minio/minio:latest
+    ports:
+      - ${MINIO_UI_PORT:-9090}:9090
+      - ${MINIO_HOST_PORT:-9000}:9000
+    command: minio server /data --console-address ":9090"
+    environment:
+      MINIO_ROOT_PASSWORD: ${MINIO_SECRET_KEY:-minioadmin}
+      MINIO_ROOT_USER: ${MINIO_ACCESS_KEY:-minioadmin}
+
+
+  keycloak:
+    image: keycloak-oc
+    build:
+      context: .
+      dockerfile: Dockerfile.keycloak
+    ports:
+      - ${KEYCLOAK_PORT:-8080}:8080
+    environment:
+      KC_BOOTSTRAP_ADMIN_PASSWORD: admin
+      KC_BOOTSTRAP_ADMIN_USERNAME: admin
+      KC_DB: postgres
+      KC_DB_URL_HOST: db
+      KC_DB_URL_PORT: 5432
+      KC_DB_USERNAME: ${POSTGRES_USER:-postgres}
+      KC_DB_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
+      KC_DB_SCHEMA: public
+      # The environment variable KEYCLOAK_API_SECRET is used in `realm.json`.
+      KEYCLOAK_API_SECRET: ${KEYCLOAK_API_SECRET:-this_is_an_unsafe_secret_you_must_change_it}
+    command: ['start-dev', '--import-realm']
+    volumes:
+      - ./keycloak/realm.json:/opt/keycloak/data/import/realm.json
+    depends_on:
+      - db        
+
+  clamav:
+    image: clamav/clamav
+    ports:
+      - 3310:3310      
+
+volumes:
+  dbgate:
+  db:

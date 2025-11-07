@@ -1,0 +1,83 @@
+# Build the image and return the variable $REPO_REFERENCE=<full repo url with @sha>
+# The goal is to be able to pull the newest image instead of gitlab caching <image>:test
+.image-build:
+  variables:
+    HARBOR_REPO: ""
+    DOCKER_FILE_PATH: ""
+    DOCKER_FILE_NAME: ""
+    REPO_REFERENCE: ""
+  image:
+    name: gcr.io/kaniko-project/executor:v1.3.0-debug # Must run in own image
+    entrypoint: [""]
+  before_script:
+    - echo "Started by ${GITLAB_USER_LOGIN} at $(date +%Y-%m-%d'-'%H-%M-%S)"
+    - unset ${HISTFILE} # Disable shell cache for security purposes
+    - cd $DOCKER_FILE_PATH
+  script:
+    - mkdir -p /kaniko/.docker
+    - PASSWORD_DECODED=$(echo $HARBOR_ROBOT_SECRET | base64 -d)
+    - echo "{\"auths\":{\"$HARBOR_REG\":{\"username\":\"$HARBOR_ROBOT_NAME\",\"password\":\"$PASSWORD_DECODED\"}}}" > /kaniko/.docker/config.json # Harbor credentials for pushing
+    - echo "contextdir ${CI_PROJECT_DIR} contextfile ${DOCKER_FILE_PATH} / ${DOCKER_FILE_NAME} harbor reg:${HARBOR_REG};"
+    - echo "destination ${HARBOR_REG}/${HARBOR_PROJECT}/${HARBOR_REPO}"
+    - echo "base image ${BASE_IMAGE}"
+    - cp /busybox/cat /kaniko/
+    - /kaniko/executor
+      --context ${CI_PROJECT_DIR}/$DOCKER_FILE_PATH
+      --dockerfile $CI_PROJECT_DIR/$DOCKER_FILE_PATH/$DOCKER_FILE_NAME
+      --destination ${HARBOR_REG}/${HARBOR_PROJECT}/${HARBOR_REPO}:ci-test
+      --digest-file=digest.txt
+      --cache=false
+      --build-arg=BASE_IMAGE=${BASE_IMAGE}
+      --build-arg=APP_VERSION=${CI_COMMIT_TAG:-untagged}
+    - echo "${REPO_REFERENCE}=${HARBOR_REG}/${HARBOR_PROJECT}/${HARBOR_REPO}@$( cat digest.txt )" > $CI_PROJECT_DIR/out.env      
+    - echo "Built image at ${HARBOR_REG}/${HARBOR_PROJECT}/${HARBOR_REPO}:ci-test"
+  artifacts:
+    reports:
+      dotenv: out.env
+  only:
+    - tags
+    - merge_requests
+
+# stage the image for deployment by tagging the image with the COMMIT_TAG
+.image-tag:
+  variables:
+    REPO: ""
+    HARBOR_REPO: ""
+  image:
+    name: gcr.io/kaniko-project/executor:v1.3.0-debug
+    entrypoint: [""]
+  before_script:
+    - echo "Started by ${GITLAB_USER_LOGIN} at $(date +%Y-%m-%d'-'%H-%M-%S)"
+    - unset ${HISTFILE} # Disable shell cache for security purposes
+    - echo tagging $REPO to ${HARBOR_REG}/${HARBOR_PROJECT}/${HARBOR_REPO}:${CI_COMMIT_TAG}
+  script:
+    - mkdir -p /kaniko/.docker
+    - PASSWORD_DECODED=$(echo $HARBOR_ROBOT_SECRET | base64 -d)
+    - echo "{\"auths\":{\"$HARBOR_REG\":{\"username\":\"$HARBOR_ROBOT_NAME\",\"password\":\"$PASSWORD_DECODED\"}}}" > /kaniko/.docker/config.json # Harbor credentials for pushing
+    - echo "FROM  ${REPO}" | /kaniko/executor --context $CI_PROJECT_DIR --dockerfile /dev/stdin --destination ${HARBOR_REG}/${HARBOR_PROJECT}/${HARBOR_REPO}:${CI_COMMIT_TAG}
+    - echo "FROM  ${REPO}" | /kaniko/executor --context $CI_PROJECT_DIR --dockerfile /dev/stdin --destination ${HARBOR_REG}/${HARBOR_PROJECT}/${HARBOR_REPO}:latest
+  only:
+    - tags    
+    - merge_requests
+
+# delete test repo by digest
+.image-delete:
+  variables:
+    REPO: ""
+    HARBOR_REPO: ""
+  image:
+    name: harbor-gn2.cicd.s15m.nl/ictu-devops-pub/library/helm-toolbox:latest
+    entrypoint: [""]
+  before_script:
+    - echo "Started by ${GITLAB_USER_LOGIN} at $(date +%Y-%m-%d'-'%H-%M-%S)"
+    - apk add curl
+    - unset ${HISTFILE} # Disable shell cache for security purposes
+    - echo deleting test repo $REPO
+  script:
+    - PASSWORD_DECODED=$(echo $HARBOR_ROBOT_SECRET | base64 -d)
+    - DIGEST=${REPO#*@} # get the string after@
+    - echo "deleting reference $DIGEST"
+    - curl -u $HARBOR_ROBOT_NAME:$PASSWORD_DECODED -X DELETE https://${HARBOR_REG}/api/v2.0/projects/${HARBOR_PROJECT}/repositories/${HARBOR_REPO}/artifacts/${DIGEST}
+  only:
+    - tags    
+    - merge_requests

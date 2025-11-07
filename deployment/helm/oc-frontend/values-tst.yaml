@@ -1,0 +1,4 @@
+namespace: ictu-devops-tst
+replicaCount: 1
+domain: ictu-devops-tst.test3.s15m.nl
+keycloakUrl: https://s04.i8s.nl

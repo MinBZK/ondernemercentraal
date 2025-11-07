@@ -1,0 +1,4 @@
+namespace: ictu-devops-prd
+replicaCount: 2
+domain: ictu-devops-prd.prod4.s15m.nl
+keycloakUrl: https://s01.i8s.nl

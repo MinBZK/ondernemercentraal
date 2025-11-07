@@ -1,0 +1,49 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: "oc-wildcard-ingress"
+  annotations:
+    nginx.ingress.kubernetes.io/ssl-redirect: "true"
+    nginx.ingress.kubernetes.io/proxy-body-size: 2m
+    nginx.ingress.kubernetes.io/configuration-snippet: >
+      more_set_headers "Content-Security-Policy:
+      connect-src 'self' https://s07.i8s.nl https://s17.i8s.nl;
+      frame-src 'self' https://s07.i8s.nl;";
+spec:
+  ingressClassName: nginx
+  tls:
+    - hosts:
+        - oc.ictu-devops-acc.test3.s15m.nl
+      secretName: wildcard-tls
+  rules:
+    - host: oc.ictu-devops-acc.test3.s15m.nl
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: oc-frontend
+                port:
+                  number: 8080
+          - path: /api
+            pathType: Prefix
+            backend:
+              service:
+                name: oc-backend
+                port:
+                  number: 8000
+          - path: /docs
+            pathType: Prefix
+            backend:
+              service:
+                name: oc-backend
+                port:
+                  number: 8000
+          - path: /openapi.json
+            pathType: Exact
+            backend:
+              service:
+                name: oc-backend
+                port:
+                  number: 8000
