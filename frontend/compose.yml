@@ -1,0 +1,9 @@
+name: oc-frontend
+services:
+  frontend:
+      build:
+        context: .
+        args:
+          NGINX_IMAGE: nginx:1.21.6-alpine
+      ports:
+      - 5173:8080

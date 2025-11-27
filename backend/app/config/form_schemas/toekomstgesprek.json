@@ -1,0 +1,132 @@
+{
+  "type": "object",
+  "properties": {
+    "Expertblik": {
+      "type": "object",
+      "properties": {
+        "Is de onderneming levensvatbaar?": {
+          "type": "string",
+          "enum": [
+            "Ja",
+            "Nee"
+          ]
+        },
+        "Omdat": {
+          "type": "string"
+        },
+        "Wat is de huidige belastbaarheid van de ondernemer, zowel mentaal als fysiek?": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "Is de onderneming levensvatbaar?"
+      ]
+    },
+    "Analyse expertblik": {
+      "type": "object",
+      "properties": {
+        "Geef een analyse van de situatie van de ondernemer": {
+          "type": "string"
+        },
+        "Wat zijn de ambities van de ondernemer?": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "Geef een analyse van de situatie van de ondernemer",
+        "Wat zijn de ambities van de ondernemer?"
+      ]
+    },
+    "Hulpvraag ondernemer": {
+      "type": "object",
+      "properties": {
+        "Wat is de concrete vraag van de ondernemer?": {
+          "type": "string"
+        },
+        "Wat is het advies?": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "Wat is de concrete vraag van de ondernemer?",
+        "Wat is het advies?"
+      ]
+    },
+    "Advies vervolgdienstverlening": {
+      "type": "object",
+      "properties": {
+        "Geef (indien noodzakelijk) een prioritering aan in de vervolgdienstverlening": {
+          "type": "string"
+        },
+        "Onderneming versterken": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "Advies, coaching en begeleiding van een ondernemersexpert",
+              "Hulp bij mijn administratie",
+              "Hulp bij mijn juridische vragen",
+              "Zelf aan de slag met een cursus of hulpmiddelen",
+              "Netwerk en platformdiensten"
+            ]
+          }
+        },
+        "Toelichting bij Onderneming Versterken": {
+          "type": "string"
+        },
+        "Ander werk": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "Tijdelijk of vast werk in loondienst",
+              "Mezelf omscholen",
+              "Loopbaanbegeleiding",
+              "Hulp bij onderneming beëindigen"
+            ]
+          }
+        },
+        "Toelichting bij Ander werk": {
+          "type": "string"
+        },
+        "Financiële hulp": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "Inzicht krijgen in mijn financiële situatie",
+              "Een microkrediet",
+              "Hulp bij bedrijfsschulden",
+              "Hulp bij persoonlijke schulden",
+              "Bbz-uitkering voor levensonderhoud en/of een bedrijfskapitaal."
+            ]
+          }
+        },
+        "Toelichting bij Financiële hulp": {
+          "type": "string"
+        },
+        "Toelichting bij Psychosociale en mentale hulp": {
+          "type": "string"
+        },
+        "Duurzaamheid en Innovatie": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "enum": [
+              "Energieadvies",
+              "Begeleiding bij implementatie energieadvies",
+              "Begeleiding/coaching bij het onderzoeken van innovatieve mogelijkheden/oplossingen ter verbetering van de bedrijfsvoering en groei van het bedrijf",
+              "Hulp bij digitalisering bedrijfsvoering"
+            ]
+          }
+        },
+        "Toelichting bij Duurzaamheid en Innovatie": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "Geef (indien noodzakelijk) een prioritering aan in de vervolgdienstverlening"
+      ]
+    }
+  }
+}

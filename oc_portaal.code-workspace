@@ -1,0 +1,65 @@
+{
+  "folders": [
+    {
+      "path": "."
+    },
+    {
+      "path": "backend",
+      "settings": {
+        "editor.codeActionsOnSave": {
+          "source.organizeImports": "explicit"
+        },
+        "editor.formatOnSave": true,
+        "[python]": {
+          "editor.defaultFormatter": "charliermarsh.ruff"
+        }
+      }
+    },
+    {
+      "path": "frontend",
+      "settings": {
+        "editor.formatOnSave": true,
+        "editor.codeActionsOnSave": {
+          "source.organizeImports": true
+        },
+        "css.validate": false,
+        "tailwindCSS.experimental.classRegex": [
+          "class\\s*:\\s*['\"]([^'\"]*)['\"]",
+          "className\\s*:\\s*['\"]([^'\"]*)['\"]"
+        ]
+      }
+    }
+  ],
+  "settings": {
+    "[python]": {
+      "editor.formatOnSave": true,
+      "editor.codeActionsOnSave": {
+        "source.fixAll": "explicit",
+        "source.organizeImports": "explicit"
+      },
+      "editor.defaultFormatter": "charliermarsh.ruff"
+    },
+    "workbench.colorCustomizations": {
+      "titleBar.activeBackground": "#753939"
+    },
+    "files.exclude": {
+      "**/__pycache__": true
+    },
+    "eslint.format.enable": true,
+    "css.validate": false,
+    "tailwindCSS.experimental.classRegex": [
+      "class\\s*:\\s*['\"]([^'\"]*)['\"]", // Tailwind class extraction
+      "className\\s*:\\s*['\"]([^'\"]*)['\"]"
+    ],
+    "[jsonc]": {
+      "editor.defaultFormatter": "vscode.json-language-features"
+    },
+    "typescript.tsdk": "frontend/node_modules/typescript/lib"
+  },
+  "extensions": {
+    "recommendations": [
+      "dbaeumer.vscode-eslint",
+      "vue.volar",
+    ]
+  }
+}

@@ -1,0 +1,77 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Klantinformatie",
+    "description": "Schema voor het vastleggen van achtergrond- en financiële informatie van een klant.",
+    "type": "object",
+    "properties": {
+        "Achtergrondinformatie": {
+            "type": "object",
+            "title": "Achtergrondinformatie",
+            "properties": {
+                "Reden van aanmelding/hulpvraag": {
+                    "type": "string",
+                    "title": "Reden van aanmelding/Hulpvraag",
+                    "description": "Uitleg van de reden voor aanmelding of de hulpvraag."
+                },
+                "Bedrijfssituatie": {
+                    "type": "string",
+                    "title": "Bedrijfssituatie",
+                    "description": "Beschrijving van de bedrijfssituatie van de klant."
+                },
+                "Gezins- en woonsituatie": {
+                    "type": "string",
+                    "title": "Gezins- en woonsituatie",
+                    "description": "Details over de gezins- en woonsituatie van de klant."
+                },
+                "Eventuele eerdere hulpverlening": {
+                    "type": "string",
+                    "title": "Eventuele eerdere hulpverlening",
+                    "description": "Informatie over eventuele eerdere hulpverlening."
+                }
+            }
+        },
+        "Financiële situatie": {
+            "type": "object",
+            "title": "Financiële situatie",
+            "properties": {
+                "Inkomen": {
+                    "type": "string",
+                    "title": "Inkomen",
+                    "description": "Informatie over het inkomen van de klant."
+                },
+                "Schulden": {
+                    "type": "string",
+                    "title": "Schulden",
+                    "description": "Informatie over de schulden van de klant."
+                },
+                "Betalingsregelingen": {
+                    "type": "string",
+                    "title": "Betalingsregelingen",
+                    "description": "Details over eventuele betalingsregelingen."
+                },
+                "Boekhouding": {
+                    "type": "string",
+                    "title": "Boekhouding",
+                    "description": "Informatie over de boekhouding van de klant."
+                }
+            }
+        },
+        "Overig": {
+            "type": "object",
+            "title": "Overig",
+            "description": "Overige relevante informatie.",
+            "properties": {
+                "Vervolgstappen": {
+                    "type": "string",
+                    "title": "Vervolgstappen",
+                    "description": "Informatie over de vervolgstappen die genomen moeten worden."
+                },
+                "Opmerkingen": {
+                    "type": "string",
+                    "title": "Opmerkingen",
+                    "description": "Eventuele aanvullende opmerkingen of informatie."
+                }
+            }
+        }
+    }
+}

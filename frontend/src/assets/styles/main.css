@@ -1,0 +1,108 @@
+/* Use @import */
+@import 'tailwindcss';
+@import './colors.css';
+@import './primevue.css';
+@import 'tailwindcss/utilities';
+@import './markdown.css';
+
+body {
+  font-size: 0.85em;
+}
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --color-primary: #900;
+}
+
+h1 {
+  @apply text-3xl font-bold mb-4;
+}
+
+h2 {
+  @apply text-xl font-bold mb-2;
+}
+
+h3 {
+  @apply text-base font-bold mb-2;
+}
+
+h4 {
+  @apply font-bold mb-2;
+}
+
+:root {
+  --font-family: 'Lucida Grande', 'Lucida Sans Unicode', sans-serif !important;
+  --primary-color: #b2d7ee !important;
+  --p-timeline-event-marker-border-color: red !important;
+  --p-list-option-group-padding: 0.25em 0.75rem 0 0.75rem !important;
+  --p-form-field-placeholder-color: var(--p-surface-400) !important;
+}
+
+table {
+  border-collapse: collapse;
+}
+
+th {
+  text-align: left;
+  font-family: var(--font-family), sans-serif !important;
+  font-weight: bold !important;
+}
+
+thead > tr {
+  border-bottom: 2px solid var(--grey-light) !important;
+}
+
+tr {
+  border-bottom: 1px solid var(--grey-light);
+}
+
+tr,
+td,
+th {
+  padding: 0.25em 0.25em !important;
+  vertical-align: center;
+}
+
+th,
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-family), sans-serif;
+}
+
+strong {
+  font-family: var(--font-family), sans-serif !important;
+}
+
+.font-bold {
+  font-family: var(--font-family), sans-serif !important;
+}
+
+html,
+body {
+  height: 100%;
+  font-family: var(--font-family), sans-serif;
+}
+
+#app {
+  height: 100%;
+}
+
+a {
+  color: var(--color-primary);
+  text-decoration: underline;
+}
+
+.p-badge-contrast {
+  background-color: var(--color-primary);
+}
+
+.p-badge:not(.p-badge-contrast) {
+  color: var(--color-primary);
+}
+
+.p-inputtext {
+  font-size: inherit !important;
+}

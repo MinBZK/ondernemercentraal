@@ -1,0 +1,84 @@
+.p-checkbox.p-highlight .p-checkbox-box {
+  border-color: var(--primary);
+  background: var(--primary);
+}
+
+.p-dropdown-item[data-p-highlight='true'] {
+  background-color: var(--c-secondary) !important;
+}
+
+.p-paginator-page[data-p-highlight='true'] {
+  background-color: var(--c-secondary) !important;
+}
+
+.p-datepicker .p-datepicker-header .p-datepicker-title .p-datepicker-year:enabled:hover,
+.p-datepicker .p-datepicker-header .p-datepicker-title .p-datepicker-month:enabled:hover {
+  color: var(--c-secondary);
+}
+
+.p-dropdown-panel .p-dropdown-items .p-dropdown-item.p-highlight {
+  color: var(--primary-darker);
+}
+
+.p-datepicker table td {
+  padding: 0;
+}
+
+.p-dialog-title,
+.p-panel-title {
+  font-family: var(--font-family-bold);
+  color: black !important;
+}
+
+.p-dialog .p-dialog-content {
+  color: black !important;
+  line-height: 1.5em;
+}
+
+.p-dialog .p-dialog-header .p-dialog-header-icon {
+  color: var(--primary);
+}
+
+.p-multiselect-panel .p-multiselect-items .p-multiselect-item {
+  color: black;
+}
+
+.p-progress-spinner-circle {
+  stroke: var(--primary) !important;
+}
+
+.p-datepicker table td > span.p-highlight {
+  color: var(--primary) !important;
+  background: var(--c-tertiary) !important;
+}
+
+.p-tag-value,
+.p-tag {
+  font-family: var(--font-family), sans-serif !important;
+}
+
+.p-timeline .p-timeline-event-marker::before {
+  background-color: var(--primary) !important;
+}
+
+.p-fileupload-basic {
+  justify-content: left !important;
+}
+
+.p-tab {
+  font-family: var(--font-family), sans-serif !important;
+  font-size: 12pt;
+}
+
+.p-message {
+  display: inline-block;
+}
+
+.p-button-label,
+.p-button-icon,
+.p-select-option-label,
+.p-togglebutton-content,
+.p-datepicker-day-view,
+.p-popover-content {
+  font-size: 0.95em !important;
+}

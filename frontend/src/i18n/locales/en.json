@@ -1,0 +1,91 @@
+{
+  "common": {
+    "appTitle": "Entrepreneur Central",
+    "welcome": "Welcome",
+    "thisWebsiteInOtherLanguages": "This website in other languages",
+    "date": "Date",
+    "from": "From",
+    "until": "Until",
+    "close": "Close",
+    "created_at": "Created on",
+    "updated_at": "Updated on"
+  },
+  "header": {
+    "appointments": "Appointments",
+    "newAppointment": "Make an appointment",
+    "logout": "Log out"
+  },
+  "footer": {
+    "municipalityUtrecht": "Municipality of Utrecht"
+  },
+  "validation": {
+    "required": "This field is required",
+    "kvkLength": "This field must contain exactly {length} characters",
+    "onlyNumbers": "This field may contain only numbers",
+    "noNumbers": "This field may not contain numbers"
+  },
+  "entities": {
+    "client": "Entrepreneur",
+    "advisor": "Advisor",
+    "case": "Case"
+  },
+  "entityAttributes": {
+    "client": {
+      "companyLocation": "Municipality of business location",
+      "residenceLocation": "Municipality of residence",
+      "initials": "Initials",
+      "lastNamePrefix": "Prefix(es)",
+      "lastName": "Last name",
+      "companyName": "Company name",
+      "bsn": "BSN (citizen service number)",
+      "email": "Email address",
+      "kvkNumber": "Chamber of Commerce number",
+      "phoneNumber": "Phone number",
+      "agreeToShareData": "I give permission to use the data I have provided for my application and, if applicable, to share it with a partner organization"
+    },
+    "case": {
+      "isActive": "Active"
+    }
+  },
+  "pages": {
+    "case": {
+      "selectAdvisor": "Select advisor"
+    },
+    "appointment": {
+      "create": {
+        "title": "Make an appointment",
+        "headerIntroduction": "For who?",
+        "introduction": "Our support is for all entrepreneurs who live or have their business in one of the following municipalities:",
+        "residenceWorkHeading": "Where do you live and work?",
+        "yourDetails": "Your details",
+        "submitButton": "Make appointment",
+        "locationValidationError": "Registration not possible. You can only register for Entrepreneur Central if you live in the Utrecht region and/or if your business is located there.",
+        "signupError": "It is not possible to make an appointment because an appointment has already been made with this email address."
+      },
+      "confirmed": {
+        "title": "Appointment made",
+        "confirmationMessage": "The appointment has been made"
+      },
+      "clientCreated": {
+        "title": "Make an appointment",
+        "clientAlreadyExists": "An appointment has already been made for the email address {email}.",
+        "ok": "Your details have been successfully processed. You will receive an email with a link to make an appointment.",
+        "noEmailReceived": "Didn't receive an email? Use the button below to resend it",
+        "resendEmail": "Resend email"
+      },
+      "pick": {
+        "title": "Make an appointment",
+        "titleCreated": "Appointment confirmed",
+        "linkInvalid": "The link used is not valid.",
+        "created": "You have made an appointment on",
+        "pickButtonLabel": "Confirm appointment",
+        "invalidLink": "The link used is invalid. Enter your email address to send a new link. If your email address is known to us, you will receive a new link.",
+        "signUpAgain": "If you haven't received an email, please register again."
+      },
+      "validationMessages": {
+        "phone_number": "This is not a valid phone number.",
+        "bsn": "This is not a valid BSN (citizen service number)."
+      }
+    }
+  }
+}

@@ -1,0 +1,166 @@
+:root {
+  --primary-color: #990000;
+  --primary-text-color: white;
+  --shadow-color: rgba(0,0,0,0.1);
+}
+
+.login-pf body {
+  background: none;
+  background-repeat: no-repeat;
+  background-position: 0px 30px;
+  background-size: cover;
+}
+
+.pf-c-button {
+  font-weight: 600;
+  font-size: 15px;
+  cursor: pointer;
+}
+
+.bold {
+  font-weight: 600;
+}
+
+.pf-c-button.pf-m-primary {
+  color: #fff;
+  background-color: #000;
+  padding-block: 8px;
+  padding-inline: 16px;
+}
+
+.pf-c-form-control {
+  font-size: 15px;
+  line-height: 24px;
+  padding: 4px;
+}
+
+.btn-primary,
+.btn-primary:hover,
+.btn-primary:active,
+.btn-primary:focus,
+.btn-primary:active:focus,
+.btn-primary:active:hover,
+.btn-primary.disabled,
+.btn-primary.disabled:hover,
+.btn-primary.disabled:active,
+.btn-primary.disabled:focus,
+.btn-primary.disabled:active:focus,
+.btn-primary.disabled:active:hover,
+.btn-primary:disabled,
+.btn-primary:disabled:hover,
+.btn-primary:disabled:active,
+.btn-primary:disabled:focus,
+.btn-primary:disabled:active:focus,
+.btn-primary:disabled:active:hover {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+  background-image: none;
+}
+
+.form-group:has(#email) {
+  display: none;
+}
+
+#kc-header-wrapper {
+  padding-top: 0;
+}
+
+.login-pf-page {
+  padding-top: 5em;
+}
+
+h2 {
+  font-size: 18px;
+  font-weight: 400;
+}
+
+.custom-footer {
+  background-color: var(--primary-color);
+  color: var(--primary-text-color);
+  padding: 1.1rem;
+  width: 100%;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  text-align: center;
+  box-shadow: 0 -2px 4px var(--shadow-color);
+}
+
+.white-space-header {
+  background-color: white;
+  padding: 2rem 0;
+  text-align: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.blue-navigation-bar {
+  background-color: var(--primary-color);
+  height: 2rem;
+  width: 100%;
+}
+
+.logo-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  height: 125px;
+  background-color: white;
+}
+
+.logo-caption {
+  font-family: 'RO Serif', serif;
+  font-size: 1rem;
+  line-height: 1.1;
+  width: 100%;
+  max-width: 300px;
+  padding: 50px 12px 25px;
+  color: #000;
+}
+
+img.logo-full {
+  display: block;
+}
+
+.bar-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  background-color: var(--primary-color);
+  min-height: 76px;
+}
+
+.bar-wrapper-content {
+  display: flex;
+  flex-basis: 100%;
+  flex-wrap: wrap;
+  max-width: 1200px;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: space-between;
+  -webkit-margin-end: -16px;
+  margin-inline-end: -16px;
+  -webkit-margin-start: -16px;
+  margin-inline-start: -16px;
+  position: relative;
+  min-height: 76px;
+  font-family: 'RO Sans', sans-serif;
+}
+
+.bar-wrapper-content div {
+  color: white;
+  font-size: 24px;
+}
+
+.kc-login-card {
+  padding: 20px 40px 30px 40px;
+  margin: 0 auto;
+  background-color: #fff;
+  box-shadow: var(--pf-global--BoxShadow--lg);
+  max-width: 500px;
+  border-top: 4px solid;
+  border-color: var(--primary-color);
+}
+
+.info-wrapper {
+  padding: 45px 35px !important;
+}

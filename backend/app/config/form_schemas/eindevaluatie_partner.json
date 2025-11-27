@@ -1,0 +1,31 @@
+{
+    "type": "object",
+    "properties": {
+        "Resultaat": {
+            "type": "string",
+            "enum": [
+                "Succesvol afgerond",
+                "Niet succesvol afgerond",
+                "Afgebroken"
+            ]
+        },
+        "Hoe is de hulpvraag opgelost?": {
+            "type": "string"
+        },
+        "Hoe is het doel behaald?": {
+            "type": "string"
+        },
+        "Hoe is het traject verlopen?": {
+            "type": "string"
+        },
+        "Wat is het behaalde doel?": {
+            "type": "string"
+        },
+        "Wat is het vervolgadvies?": {
+            "type": "string"
+        },
+        "Bijzonderheden of extra toelichting": {
+            "type": "string"
+        }
+    }
+}
