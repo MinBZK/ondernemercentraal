@@ -5,6 +5,7 @@ from fastapi import BackgroundTasks
 from app.core.models import Case, Client, PartnerOrganization, User
 from app.core.services.mail import get_mail_html_body, mail_service
 from app.core.services.mail.mail_composer_html import MailRecipient
+from app.core.settings import settings
 from app.util.logger import logger
 
 
@@ -15,7 +16,7 @@ class EmailNotifier:
     def __notify(self, recipient: MailRecipient, content: list[str], subject: str):
         self.background_task.add_task(
             mail_service.send_simple_mail,
-            sender_address="noreply@i8s.nl",
+            sender_address=settings.EMAIL_SENDER_ADDRESS,
             recipient_address=recipient["address"],
             subject=subject,
             html_body=get_mail_html_body(content, recipient=recipient, metadata={}),

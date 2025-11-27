@@ -4,8 +4,6 @@ verify_no_git_changes:
 make clean_branch_for_github:
 	rm -rf gitlab-templates
 	rm -rf deployment
-	rm .gitlab-ci.yml
-	rm -rf ./frontend/nginx
 
 github_branch: verify_no_git_changes
 	git branch -D github 2>/dev/null || true

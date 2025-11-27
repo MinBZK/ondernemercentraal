@@ -95,9 +95,10 @@ Enable backend emails:
 2. Configure the following environment variables:
 
 - `EMAIL_DOMAIN`: the domain of the e-mail server.
-- `EMAIL_CLIENT_NAME`: the e-mail address prefix from which emails are sent. The e-mail address will be `<EMAIL_CLIENT_NAME>@<EMAIL_DOMAIN>`.
+- `EMAIL_CLIENT_NAME`: the e-mail address prefix from which emails are sent. The e-mail address which will be used to login to the email server is `<EMAIL_CLIENT_NAME>@<EMAIL_DOMAIN>`.
 - `EMAIL_RELAY_PASSWORD_I8S`: the password used to connect to the email relay server.
 - `EMAIL_RELAY_HOSTNAME`: the hostname on which the email relay server is available.
+- `EMAIL_SENDER_ADDRESS`: the e-mail address from which emails are sent.
 
 Enable Keycloak emails:
 

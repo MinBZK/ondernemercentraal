@@ -50,6 +50,7 @@ class Settings(BaseSettings):
     )
     EMAIL_RELAY_HOSTNAME: str = Field(default="", min_length=0)
     EMAIL_ID_PREFIX: str = Field(default="OC", min_length=1)
+    EMAIL_SENDER_ADDRESS: str = Field(default="", min_length=1)
 
     # Minio
     MINIO_HOST: str = Field(default="localhost", min_length=1)
